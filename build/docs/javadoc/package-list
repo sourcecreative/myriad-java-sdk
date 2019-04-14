@@ -1,0 +1,9 @@
+
+io.sourcecreative.myriad.client
+io.sourcecreative.myriad.client.api
+io.sourcecreative.myriad.client.model
+io.sourcecreative.myriad.client.model.campaign
+io.sourcecreative.myriad.client.model.customer
+io.sourcecreative.myriad.client.model.distribution
+io.sourcecreative.myriad.client.model.voucher
+io.sourcecreative.myriad.client.module
