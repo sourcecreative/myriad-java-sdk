@@ -74,7 +74,7 @@ public interface MyriadApi {
   @DELETE("/campaigns/{id}")
   Call<Void> deleteCampaign(@Path("id") String campaignId);
 
-  @POST("/campaigns/{id}/import")
+  @PUT("/campaigns/{id}/vouchers")
   Call<CampaignResponse> importVouchersToCampaign(@Path("id") String campaignId, @Body ImportVouchersToCampaign importVouchers);
   
   @POST("/campaigns/{id}/rules")
