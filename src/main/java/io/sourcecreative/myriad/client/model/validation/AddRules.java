@@ -2,7 +2,6 @@ package io.sourcecreative.myriad.client.model.validation;
 
 import java.util.Set;
 
-import io.sourcecreative.myriad.client.model.Rule;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

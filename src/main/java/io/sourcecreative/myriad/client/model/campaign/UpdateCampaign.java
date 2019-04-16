@@ -1,8 +1,11 @@
 package io.sourcecreative.myriad.client.model.campaign;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
-import io.sourcecreative.myriad.client.model.VoucherDefinition;
+import io.sourcecreative.myriad.client.model.promotion.Tier;
+import io.sourcecreative.myriad.client.model.voucher.Voucher;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -12,16 +15,27 @@ import lombok.ToString;
 @Builder
 @ToString
 public class UpdateCampaign {
-	// update campaign if and only if campaign status is DRAFT
+
 	private CampaignType type;
 
 	private String description;
 	
-	private Integer vouchersCount;
+	private Integer totalSupply;
 	
-	private VoucherDefinition voucher;
+	private Boolean mintable;
+	
+	private String category;
+	
+	private Date effective;
 
-	@Singular("metadata")
+	private Date expiry;
+	
+	private Voucher voucher;
+	
+	@Singular("tier")
+	private List<Tier> promotion;
+
+	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
 
 }

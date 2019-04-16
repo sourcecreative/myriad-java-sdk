@@ -2,7 +2,6 @@ package io.sourcecreative.myriad.client.model.customer;
 
 import java.util.Map;
 
-import io.sourcecreative.myriad.client.model.Address;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +18,7 @@ import lombok.ToString;
 @ToString
 public class Customer {
 	// sourceId is mandatory
+	@NonNull
 	private String sourceId;
 
 	private String name;
@@ -26,6 +26,7 @@ public class Customer {
 	private String idCardNo;
 	
 	// wallet address is required if delivery via blockchain
+	// voucher must be a crypto asset to be distributed via blockchain
 	private String wallet;
 	
 	// email is required if delivery via email
@@ -37,10 +38,7 @@ public class Customer {
 	// address is required if delivery via courier
 	private Address address;
 
-	@Singular("metadata")
+	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
 	
-	public Customer(@NonNull String sourceId) {
-		this.sourceId = sourceId;
-	}
 }

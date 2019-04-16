@@ -3,20 +3,19 @@ package io.sourcecreative.myriad.client.api;
 import java.util.List;
 import java.util.Map;
 
-import io.sourcecreative.myriad.client.model.Rule;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.AddRulesToCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
+import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
-import io.sourcecreative.myriad.client.model.campaign.CreateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.ImportVouchersToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.customer.BatchCustomers;
 import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.customer.CustomerResponse;
 import io.sourcecreative.myriad.client.model.customer.CustomersResponse;
 import io.sourcecreative.myriad.client.model.customer.PaginatedCustomersResponse;
+import io.sourcecreative.myriad.client.model.customer.UpdateCustomers;
+import io.sourcecreative.myriad.client.model.distribution.DistributeOneOffVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributionsResponse;
 import io.sourcecreative.myriad.client.model.distribution.PaginatedDistributionsResponse;
@@ -30,6 +29,7 @@ import io.sourcecreative.myriad.client.model.segment.PaginatedSegmentsResponse;
 import io.sourcecreative.myriad.client.model.segment.SegmentResponse;
 import io.sourcecreative.myriad.client.model.validation.AddRules;
 import io.sourcecreative.myriad.client.model.validation.PaginatedRulesResponse;
+import io.sourcecreative.myriad.client.model.validation.Rule;
 import io.sourcecreative.myriad.client.model.validation.RuleResponse;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucher;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucherResponse;
@@ -54,7 +54,7 @@ public interface MyriadApi {
 
   // CAMPAIGNS
   @POST("/campaigns")
-  Call<CampaignResponse> createCampaign(@Body CreateCampaign createCampaign);
+  Call<CampaignResponse> createCampaign(@Body Campaign createCampaign);
 
   @POST("/campaigns/{id}/vouchers")
   Call<CampaignResponse> addVoucherToCampaign(@Path("id") String campaignId, @Body AddVoucherToCampaign addVoucherToCampaign);
@@ -78,7 +78,7 @@ public interface MyriadApi {
   Call<CampaignResponse> importVouchersToCampaign(@Path("id") String campaignId, @Body ImportVouchersToCampaign importVouchers);
   
   @POST("/campaigns/{id}/rules")
-  Call<AddRulesToCampaignResponse> attachRulesToCampaign(@Path("id")String campaignId, @Body AddRules addRulesToCampaign);
+  Call<CampaignResponse> attachRulesToCampaign(@Path("id")String campaignId, @Body AddRules addRulesToCampaign);
 
   @DELETE("/campaigns/{id}/rules")
   Call<Void> detachRulesFromCampaign(@Path("id")String campaignId);
@@ -132,7 +132,7 @@ public interface MyriadApi {
   Call<CustomerResponse> updateCustomer(@Path("id") String customerId, @Body Customer customer);
   
   @PUT("/customers")
-  Call<CustomersResponse> updateCustomers(@Body BatchCustomers customers);
+  Call<CustomersResponse> updateCustomers(@Body UpdateCustomers customers);
 
   @DELETE("/customers/{id}")
   Call<Void> deleteCustomer(@Path("id") String customerId);
@@ -159,11 +159,15 @@ public interface MyriadApi {
   // Vouchers will be automatically generated in the distribution process
   @POST("/distributions/batch")
   Call<DistributionsResponse> distributeVouchers(@Body DistributeVouchers distributeVoucher);
+  
+  @POST("/distributions/batch/oneoff")
+  Call<DistributionsResponse> distributeOneOffVouchers(@Body DistributeOneOffVouchers oneOffVouchers);
 
   @GET("/distributions")
   Call<PaginatedDistributionsResponse> listDistributions(@QueryMap Map<String, Object> filter);
 	
   // REDEMPTIONS
+  
   @POST("/redemptions")
   Call<RedemptionResponse> redeemVoucher(@Body RedeemVoucher redemption);
   

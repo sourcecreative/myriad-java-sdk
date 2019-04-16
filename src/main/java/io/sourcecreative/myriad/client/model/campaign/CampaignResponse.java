@@ -4,8 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import io.sourcecreative.myriad.client.model.VoucherDefinition;
+import io.sourcecreative.myriad.client.model.promotion.TierResponse;
 import io.sourcecreative.myriad.client.model.validation.RuleResponse;
+import io.sourcecreative.myriad.client.model.voucher.VoucherResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,25 +21,37 @@ public class CampaignResponse {
 	private String id;
 	
 	@NonNull
+	private Date updatedAt;
+
+	@NonNull
 	private String name;
 
 	private CampaignType type;
 
 	private String description;
 
+	private Integer totalSupply;
+
+	private Integer maxSupply;
+	
 	@NonNull
-	private Integer fixedCount;
-
-	private VoucherDefinition voucher;
-
-	private Map<String, Object> metadata;
-
 	private CampaignStatus status;
+	
+	@NonNull
+	private Date effective;
 
-	// validation rules
+	private Date expiry;
+
+	// voucher definition if this is a VOUCHER campaign
+	private VoucherResponse voucher;
+	
+	// promotion definition if this is a PROMOTION campaign
+	private List<TierResponse> promotion;
+
+	// validation rules if any
 	private List<RuleResponse> rules;
 
-
-	private Date updatedAt;
+	// campaign metadata if any
+	private Map<String, Object> metadata;
 		
 }

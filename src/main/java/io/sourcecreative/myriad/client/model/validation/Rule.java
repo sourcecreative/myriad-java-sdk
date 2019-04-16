@@ -1,4 +1,4 @@
-package io.sourcecreative.myriad.client.model;
+package io.sourcecreative.myriad.client.model.validation;
 
 import java.util.List;
 

@@ -6,7 +6,6 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
-import io.sourcecreative.myriad.client.model.VoucherDefinition;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +26,7 @@ public class CreateVoucher {
 	private String code;
 
 	@JsonUnwrapped
-	private VoucherDefinition config;
+	private Voucher config;
 
 	@Singular("metadata")
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)

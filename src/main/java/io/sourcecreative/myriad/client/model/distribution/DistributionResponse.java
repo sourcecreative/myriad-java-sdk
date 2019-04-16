@@ -17,13 +17,14 @@ import lombok.ToString;
 @Getter
 @ToString
 public class DistributionResponse {
+	// distribution id
 	private String id;
 	
 	private Date createdAt;
 
 	private Map<String, Object> metadata;
 
-	private String channel;
+	private Channel channel;
 	
 	private CustomerResponse customer;
 	

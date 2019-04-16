@@ -4,10 +4,9 @@ import java.util.Map;
 
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.AddRulesToCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
+import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
-import io.sourcecreative.myriad.client.model.campaign.CreateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.ImportVouchersToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
@@ -21,7 +20,7 @@ public class CampaignModule extends Module<ExtAsync> {
 		super(api);
 	}
 
-	public CampaignResponse create(CreateCampaign createCampaign) {
+	public CampaignResponse create(Campaign createCampaign) {
 		return new ExecutionHandler<CampaignResponse>().handle(api.createCampaign(createCampaign));
 	}
 
@@ -54,8 +53,8 @@ public class CampaignModule extends Module<ExtAsync> {
 				.handle(api.importVouchersToCampaign(campaignId, importVouchers));
 	}
 
-	public AddRulesToCampaignResponse attachRules(String campaignId, AddRules addRules) {
-		return new ExecutionHandler<AddRulesToCampaignResponse>()
+	public CampaignResponse attachRules(String campaignId, AddRules addRules) {
+		return new ExecutionHandler<CampaignResponse>()
 				.handle(api.attachRulesToCampaign(campaignId, addRules));
 	}
 
@@ -69,7 +68,7 @@ public class CampaignModule extends Module<ExtAsync> {
 
 	public class ExtAsync extends Module.Async {
 
-		public void create(CreateCampaign createCampaign, Callback<CampaignResponse> callback) {
+		public void create(Campaign createCampaign, Callback<CampaignResponse> callback) {
 			api.createCampaign(createCampaign).enqueue(callback);
 		}
 		
@@ -103,7 +102,7 @@ public class CampaignModule extends Module<ExtAsync> {
 			api.importVouchersToCampaign(campaignId, importVouchers).enqueue(cb);
 		}
 
-		public void attachRules(String campaignId, AddRules addRules, Callback<AddRulesToCampaignResponse> cb) {
+		public void attachRules(String campaignId, AddRules addRules, Callback<CampaignResponse> cb) {
 			api.attachRulesToCampaign(campaignId, addRules).enqueue(cb);
 		}
 

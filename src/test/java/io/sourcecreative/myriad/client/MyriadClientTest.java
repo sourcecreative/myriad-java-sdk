@@ -9,9 +9,9 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.mvel.MVELCondition;
 import org.junit.Test;
 
-import io.sourcecreative.myriad.client.model.VoucherDefinition;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.CreateCampaign;
+import io.sourcecreative.myriad.client.model.campaign.Campaign;
+import io.sourcecreative.myriad.client.model.voucher.Voucher;
 
 public class MyriadClientTest {
 
@@ -26,11 +26,11 @@ public class MyriadClientTest {
 		
 		Condition c = new MVELCondition("campaign.category == 'New Customer'");
 //		Condition c = new MVELCondition("campaign.name == 'XMAS-PROMO'");
-		CreateCampaign campaign = CreateCampaign.builder()
+		Campaign campaign = Campaign.builder()
 				.name("XMAS-PROMO")
 				.category("New Customer")
 				.effective(Date.valueOf("2019-04-15"))
-				.voucher(VoucherDefinition.builder().build()).build();
+				.voucher(Voucher.builder().build()).build();
 		System.out.println(campaign.getVoucher());
 		Facts facts = new Facts();
 		facts.put("campaign", campaign);

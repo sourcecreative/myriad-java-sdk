@@ -14,13 +14,14 @@ import lombok.ToString;
 @Getter
 @ToString
 public class AddVoucherToCampaign {
-	// voucher category
+	// voucher can override campaign.category
 	private String category;
 	
 	@NonNull
 	private final String code;
 
-	@Singular("metadata")
+	// client may specify voucher metadata
+	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
 	
 	@Builder

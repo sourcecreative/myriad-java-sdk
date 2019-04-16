@@ -1,4 +1,4 @@
-package io.sourcecreative.myriad.client.model;
+package io.sourcecreative.myriad.client.model.customer;
 
 import lombok.AccessLevel;
 import lombok.Builder;

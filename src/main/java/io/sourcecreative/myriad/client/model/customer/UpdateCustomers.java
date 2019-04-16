@@ -1,35 +1,27 @@
 package io.sourcecreative.myriad.client.model.customer;
 
+import java.util.List;
 import java.util.Map;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @Getter
 @ToString
-public class CustomerResponse {
-	private String id;
+public class UpdateCustomers {
 	
-	private String appId;
+	@Singular("customer")
+	private List<Customer> customers;
 	
-	// unique
-	private String sourceId;
-
-	private String name;
-	
-	private String idCardNo;
-	
-	private String email;
-	
-	private String phone;
-	
-	private String wallet;
-	
-	private Address address;
-
+	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
 
 }
