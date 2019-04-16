@@ -15,8 +15,8 @@ public final class Constants {
   public static final String HTTP_HEADER_MYRIAD_API_VERSION = "X-Myriad-API-Version";
 
   // Configuration
-  public static final String ENDPOINT_MYRIAD = "api.myriad.sourcecreative.io/v1/";
-  public static final String ENDPOINT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
-  public static final String ENDPOINT_SECONDARY_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+  public static final String MYRIAD_ENDPOINT_BASE_URL = "https://myriadapi.sourcecreative.io/v1/";
+  public static final String MYRIAD_ENDPOINT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
+  public static final String MYRIAD_ENDPOINT_SECONDARY_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
 }

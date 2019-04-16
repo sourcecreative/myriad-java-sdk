@@ -1,7 +1,8 @@
 package io.sourcecreative.myriad.client.model.validation;
 
-import java.util.List;
+import java.util.Set;
 
+import io.sourcecreative.myriad.client.model.Rule;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,5 +17,5 @@ import lombok.ToString;
 @ToString
 public class AddRules {
 	// assign rules to campaign - if a rule does not exist, create and assign
-	private List<CreateRule> rules;
+	private Set<Rule> rules;
 }

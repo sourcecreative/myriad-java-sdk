@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
+import io.sourcecreative.myriad.client.model.VoucherDefinition;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,12 +22,12 @@ import lombok.ToString;
 @ToString
 public class CreateVoucher {
 	// if campaignId is provided, the campaign must be AUTO_UPDATE type
-	private UUID campaignId;
+	private String campaignId;
 	// client may provide a code
 	private String code;
 
 	@JsonUnwrapped
-	private VoucherConfig config;
+	private VoucherDefinition config;
 
 	@Singular("metadata")
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)

@@ -2,6 +2,8 @@ package io.sourcecreative.myriad.client;
 
 import java.io.IOException;
 
+import org.assertj.core.util.Strings;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,8 +12,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import io.sourcecreative.myriad.client.api.APIError;
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.module.CampaignModule;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -22,40 +22,39 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Accessors(fluent = true)
 public class MyriadClient {
 	@Getter
-	private String appSecret;
+	private final String baseUrl;
 
 	@Getter
-	private String appId;
+	private final String appId;
 
 	@Getter
-	private String endpoint;
-
-	@Getter
-	private boolean secure;
+	private final String appSecret;
 
 	@Getter @Builder.Default
-	private Level logLevel = Level.NONE;
+	private final Level logLevel = Level.NONE;
 
-	@Getter @Builder.Default
-	private ApiVersion apiVersion = ApiVersion.lastest();
-
-	@Getter(AccessLevel.NONE)
-	private CampaignModule campaignModule;
+	// TODO: ignore this field in the builder
+	private final CampaignModule campaignModule;
 
 	@Builder
-	private MyriadClient() {
-		if (appSecret == null)
+	private MyriadClient(String baseUrl, String appId, String appSecret, Level logLevel) {
+		
+		if (Strings.isNullOrEmpty(appSecret))
 			throw new IllegalArgumentException("App token must be defined.");
 
-		if (appId == null)
+		if (Strings.isNullOrEmpty(appId))
 			throw new IllegalArgumentException("App ID must be defined.");
+		
+		this.appId = appId;
+		this.appSecret = appSecret;
+		this.baseUrl = baseUrl;
+		this.logLevel = logLevel;
 
-		MyriadApi api = createRetrofitService();
+		MyriadApi api = createRetrofitService(this.baseUrl, this.appId, this.appSecret);
 
 		// create modules
 		this.campaignModule = new CampaignModule(api);
@@ -82,19 +81,17 @@ public class MyriadClient {
 		return mapper;
 	}
 
-	private MyriadApi createRetrofitService() {
-		String httpScheme = secure ? Constants.SCHEME_HTTPS : Constants.SCHEME_HTTP;
-		
+	private MyriadApi createRetrofitService(final String baseUrl, final String appid, final String secret) {
 		OkHttpClient.Builder okClientBuilder = new OkHttpClient.Builder();
 		
 		okClientBuilder.addInterceptor(new Interceptor() {
 			@Override
 			public okhttp3.Response intercept(Chain chain) throws IOException {
 				okhttp3.Request request = chain.request();
-				okhttp3.Headers headers = request.headers().newBuilder().add(Constants.HTTP_HEADER_APP_ID, appId)
-						.add(Constants.HTTP_HEADER_APP_TOKEN, secure ? appSecret : "")
+				okhttp3.Headers headers = request.headers().newBuilder().add(Constants.HTTP_HEADER_APP_ID, appid)
+						.add(Constants.HTTP_HEADER_APP_TOKEN, secret)
 						.add(Constants.HTTP_HEADER_MYRIAD_CHANNEL, Constants.MYRIAD_CHANNEL_NAME)
-						.add(Constants.HTTP_HEADER_MYRIAD_API_VERSION, apiVersion.getValue()).build();
+						.build();
 				request = request.newBuilder().headers(headers).build();
 				return chain.proceed(request);
 			}
@@ -115,7 +112,7 @@ public class MyriadClient {
 		});
 
 		Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-				.baseUrl(String.format("%s://%s", httpScheme, endpoint == null ? Constants.ENDPOINT_MYRIAD : endpoint))
+				.baseUrl(baseUrl)
 				.addConverterFactory(JacksonConverterFactory.create(createObjectMapper()))
 				.client(okClientBuilder.build());
 		

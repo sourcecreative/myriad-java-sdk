@@ -1,7 +1,9 @@
 package io.sourcecreative.myriad.client.api;
 
+import java.util.List;
 import java.util.Map;
 
+import io.sourcecreative.myriad.client.model.Rule;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddRulesToCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
@@ -27,10 +29,8 @@ import io.sourcecreative.myriad.client.model.segment.CreateSegment;
 import io.sourcecreative.myriad.client.model.segment.PaginatedSegmentsResponse;
 import io.sourcecreative.myriad.client.model.segment.SegmentResponse;
 import io.sourcecreative.myriad.client.model.validation.AddRules;
-import io.sourcecreative.myriad.client.model.validation.CreateRule;
 import io.sourcecreative.myriad.client.model.validation.PaginatedRulesResponse;
 import io.sourcecreative.myriad.client.model.validation.RuleResponse;
-import io.sourcecreative.myriad.client.model.validation.RulesResponse;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucher;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucherResponse;
 import io.sourcecreative.myriad.client.model.voucher.AddRulesToVoucherResponse;
@@ -183,7 +183,7 @@ public interface MyriadApi {
   
   // create custom validation rule
   @POST("/rules")
-  Call<RuleResponse> createRule(@Body CreateRule createRule);
+  Call<RuleResponse> createRule(@Body Rule createRule);
     
   // returns rules including pre-defined system rules
   @GET("/rules")
@@ -193,11 +193,11 @@ public interface MyriadApi {
   Call<Void> deleteRule(@Path("id")String id);
   
   @GET("/campaigns/{id}/rules")
-  Call<RulesResponse> getRulesByCampaign(@Path("id")String campaignId);
+  Call<List<RuleResponse>> getRulesByCampaign(@Path("id")String campaignId);
   
   // returns the rules assigned to voucher or assigned to voucher's campaign
   @GET("/vouchers/{id}/rules")
-  Call<RulesResponse> getRulesByVoucher(@Path("id")String voucherId);
+  Call<List<RuleResponse>> getRulesByVoucher(@Path("id")String voucherId);
 
   @POST("/vouchers/{id}/validate")
   Call<ValidateVoucherResponse> validateVoucher(@Body ValidateVoucher validateVoucher);

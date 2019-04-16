@@ -3,6 +3,7 @@ package io.sourcecreative.myriad.client.model.voucher;
 import java.util.Date;
 import java.util.Map;
 
+import io.sourcecreative.myriad.client.model.VoucherDefinition;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class VoucherResponse {
 
 	private String code;
 	
-	private VoucherConfig config;
+	private VoucherDefinition config;
 	
 	private VoucherStatus status;
 	

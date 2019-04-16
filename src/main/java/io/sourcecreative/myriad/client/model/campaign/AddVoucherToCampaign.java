@@ -4,16 +4,12 @@ import java.util.Map;
 
 import com.google.common.base.Strings;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
 @ToString
@@ -21,7 +17,8 @@ public class AddVoucherToCampaign {
 	// voucher category
 	private String category;
 	
-	private String code;
+	@NonNull
+	private final String code;
 
 	@Singular("metadata")
 	private Map<String, Object> metadata;
