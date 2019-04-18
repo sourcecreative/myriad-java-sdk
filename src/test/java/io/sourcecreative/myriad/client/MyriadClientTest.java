@@ -9,7 +9,6 @@ import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.mvel.MVELCondition;
 import org.junit.Test;
 
-import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.model.voucher.Voucher;

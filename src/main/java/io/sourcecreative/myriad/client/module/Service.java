@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.sourcecreative.myriad.client.api.MyriadApi;
 
-public abstract class Module {
+public abstract class Service {
   final MyriadApi api;
   
-  // objectmapper used to convert error response to APIError
-  final ObjectMapper om = new ObjectMapper();
+  final ObjectMapper objectMapper;
 
-  Module(MyriadApi api) {
+  Service(MyriadApi api, ObjectMapper objectMapper) {
     this.api = api;
+    this.objectMapper = objectMapper;
   }
   
 }

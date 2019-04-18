@@ -2,6 +2,8 @@ package io.sourcecreative.myriad.client.module;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
@@ -12,10 +14,10 @@ import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
 import io.sourcecreative.myriad.client.model.validation.AddRules;
 
-public class CampaignModule extends Module {
+public class CampaignService extends Service {
 
-	public CampaignModule(MyriadApi api) {
-		super(api);
+	public CampaignService(MyriadApi api, ObjectMapper objectMapper) {
+		super(api, objectMapper);
 	}
 
 	public RemoteCall<CampaignResponse> create(Campaign campaign) {
