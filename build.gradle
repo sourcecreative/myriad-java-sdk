@@ -21,6 +21,7 @@ dependencies {
     
     compile 'com.squareup.retrofit2:retrofit:2.5.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.5.0'
+	compile 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.14.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.14.0'
     compile 'com.squareup.okhttp3:okhttp:3.14.0'
@@ -74,8 +75,8 @@ dependencies {
 group = 'io.myriad.client'
 version = '1.0.0'
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 // In this section you declare where to find the dependencies of your project
 repositories {

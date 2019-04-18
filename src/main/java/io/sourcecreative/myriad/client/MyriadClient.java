@@ -20,6 +20,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Builder
@@ -114,6 +115,7 @@ public class MyriadClient {
 		Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
 				.baseUrl(baseUrl)
 				.addConverterFactory(JacksonConverterFactory.create(createObjectMapper()))
+				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.client(okClientBuilder.build());
 		
 		return retrofitBuilder.build().create(MyriadApi.class);

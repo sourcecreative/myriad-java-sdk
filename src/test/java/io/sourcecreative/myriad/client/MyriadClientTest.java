@@ -11,27 +11,29 @@ import org.junit.Test;
 
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
+import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.model.voucher.Voucher;
 
 public class MyriadClientTest {
 
 	@Test
 	public void test() {
-		//MyriadClient myriad = MyriadClient.builder().build();
-//		myriad.campaigns().async().create(createCampaign, callback);
-		System.out.println(ActivateCampaign.of(false).toString());
-		//AddVoucherToCampaign.builder().code("").build();
-		//AddRulesToCampaignResponse.;
-		//fail("Not yet implemented");
-		
+		MyriadClient myriad = MyriadClient.builder().build();
+						
 		Condition c = new MVELCondition("campaign.category == 'New Customer'");
 //		Condition c = new MVELCondition("campaign.name == 'XMAS-PROMO'");
+	
 		Campaign campaign = Campaign.builder()
 				.name("XMAS-PROMO")
 				.category("New Customer")
 				.effective(Date.valueOf("2019-04-15"))
 				.voucher(Voucher.builder().build()).build();
-		System.out.println(campaign.getVoucher());
+
+		// sync execution
+		CampaignResponse response = myriad.campaigns().create(campaign).send();
+
+		// validate
+		
 		Facts facts = new Facts();
 		facts.put("campaign", campaign);
 		//facts.put("voucher", campaign.getVoucher());

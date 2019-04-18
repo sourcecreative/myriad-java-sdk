@@ -4,10 +4,11 @@ import java.io.IOException;
 
 import io.sourcecreative.myriad.client.api.APIError;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
-public final class ExecutionHandler<T> {
-	public T handle(Call<T> call) {
+public final class RemoteCalls<T> {
+	public static <T> T send(Call<T> call) {
 		APIError error;
 		try {
 			Response<T> response = call.execute();
@@ -26,6 +27,10 @@ public final class ExecutionHandler<T> {
 					.message(re.getMessage()).build();	
 		}
 		throw error;
+	}
+	
+	public static <T> void sendAsyn(Call<T> call, Callback<T> cb) {
+		call.enqueue(cb);
 	}
 
 }

@@ -11,119 +11,55 @@ import io.sourcecreative.myriad.client.model.campaign.ImportVouchersToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
 import io.sourcecreative.myriad.client.model.validation.AddRules;
-import io.sourcecreative.myriad.client.module.CampaignModule.ExtAsync;
-import retrofit2.Callback;
 
-public class CampaignModule extends Module<ExtAsync> {
+public class CampaignModule extends Module {
 
 	public CampaignModule(MyriadApi api) {
 		super(api);
 	}
 
-	public CampaignResponse create(Campaign createCampaign) {
-		return new ExecutionHandler<CampaignResponse>().handle(api.createCampaign(createCampaign));
+	public RemoteCall<CampaignResponse> create(Campaign campaign) {
+		return RemoteCall.of(api.createCampaign(campaign));
+	}
+	
+	public RemoteCall<CampaignResponse> addVoucher(String campaignId, AddVoucherToCampaign addVoucher) {
+		return RemoteCall.of(api.addVoucherToCampaign(campaignId, addVoucher));
 	}
 
-	public CampaignResponse addVoucher(String campaignId, AddVoucherToCampaign addVoucher) {
-		return new ExecutionHandler<CampaignResponse>().handle(api.addVoucherToCampaign(campaignId, addVoucher));
+	public RemoteCall<CampaignResponse> findById(String campaignId) {
+		return RemoteCall.of(api.getCampaign(campaignId));
 	}
 
-	public CampaignResponse findById(String campaignId) {
-		return new ExecutionHandler<CampaignResponse>().handle(api.getCampaign(campaignId));
+	public RemoteCall<PaginatedCampaignsResponse> list(Map<String, Object> filter) {
+		return RemoteCall.of(api.listCampaigns(filter));
 	}
 
-	public PaginatedCampaignsResponse list(Map<String, Object> filter) {
-		return new ExecutionHandler<PaginatedCampaignsResponse>().handle(api.listCampaigns(filter));
+	public RemoteCall<CampaignResponse> update(String campaignId, UpdateCampaign updateCampaign) {
+		return RemoteCall.of(api.updateCampaign(campaignId, updateCampaign));
 	}
 
-	public CampaignResponse update(String campaignId, UpdateCampaign updateCampaign) {
-		return new ExecutionHandler<CampaignResponse>().handle(api.updateCampaign(campaignId, updateCampaign));
+	public RemoteCall<CampaignResponse> activate(String campaignId, ActivateCampaign activateCampaign) {
+		return RemoteCall.of(api.activateCampaign(campaignId, activateCampaign));
 	}
 
-	public CampaignResponse activate(String campaignId, ActivateCampaign activateCampaign) {
-		return new ExecutionHandler<CampaignResponse>().handle(api.activateCampaign(campaignId, activateCampaign));
+	public RemoteCall<Void> delete(String campaignId) {
+		return RemoteCall.of(api.deleteCampaign(campaignId));
 	}
 
-	public Void delete(String campaignId) {
-		return new ExecutionHandler<Void>().handle(api.deleteCampaign(campaignId));
+	public RemoteCall<CampaignResponse> importVouchers(String campaignId, ImportVouchersToCampaign importVouchers) {
+		return RemoteCall.of(api.importVouchersToCampaign(campaignId, importVouchers));
 	}
 
-	public CampaignResponse importVouchers(String campaignId, ImportVouchersToCampaign importVouchers) {
-		return new ExecutionHandler<CampaignResponse>()
-				.handle(api.importVouchersToCampaign(campaignId, importVouchers));
+	public RemoteCall<CampaignResponse> attachRules(String campaignId, AddRules addRules) {
+		return RemoteCall.of(api.attachRulesToCampaign(campaignId, addRules));
 	}
 
-	public CampaignResponse attachRules(String campaignId, AddRules addRules) {
-		return new ExecutionHandler<CampaignResponse>()
-				.handle(api.attachRulesToCampaign(campaignId, addRules));
+	public RemoteCall<Void> detachRules(String campaignId) {
+		return RemoteCall.of(api.detachRulesFromCampaign(campaignId));
 	}
 
-	public Void detachRules(String campaignId) {
-		return new ExecutionHandler<Void>().handle(api.detachRulesFromCampaign(campaignId));
-	}
-
-	public Void detachRule(String campaignId, String ruleId) {
-		return new ExecutionHandler<Void>().handle(api.detachRuleFromCampaign(campaignId, ruleId));
-	}
-
-	public class ExtAsync extends Module.Async {
-
-		public void create(Campaign createCampaign, Callback<CampaignResponse> callback) {
-			api.createCampaign(createCampaign).enqueue(callback);
-		}
-		
-		public void addVoucher(String campaignId, AddVoucherToCampaign addVoucher, 
-				Callback<CampaignResponse> callback) {
-			api.addVoucherToCampaign(campaignId, addVoucher).enqueue(callback);
-		}
-
-		public void findById(String campaignId, Callback<CampaignResponse> cb) {
-			api.getCampaign(campaignId).enqueue(cb);
-		}
-
-		public void list(Map<String, Object> filter, Callback<PaginatedCampaignsResponse> cb) {
-			api.listCampaigns(filter).enqueue(cb);
-		}
-
-		public void update(String campaignId, UpdateCampaign updateCampaign, Callback<CampaignResponse> cb) {
-			api.updateCampaign(campaignId, updateCampaign).enqueue(cb);
-		}
-
-		public void activate(String campaignId, ActivateCampaign activateCampaign, Callback<CampaignResponse> cb) {
-			api.activateCampaign(campaignId, activateCampaign).enqueue(cb);
-		}
-
-		public void delete(String campaignId, Callback<Void> cb) {
-			api.deleteCampaign(campaignId).enqueue(cb);
-		}
-
-		public void importVouchers(String campaignId, ImportVouchersToCampaign importVouchers, 
-				Callback<CampaignResponse> cb) {
-			api.importVouchersToCampaign(campaignId, importVouchers).enqueue(cb);
-		}
-
-		public void attachRules(String campaignId, AddRules addRules, Callback<CampaignResponse> cb) {
-			api.attachRulesToCampaign(campaignId, addRules).enqueue(cb);
-		}
-
-		public void detachRules(String campaignId, Callback<Void> cb) {
-			api.detachRulesFromCampaign(campaignId).enqueue(cb);
-		}
-
-		public void detachRule(String campaignId, String ruleId, Callback<Void> cb) {
-			api.detachRuleFromCampaign(campaignId, ruleId).enqueue(cb);
-		}
-
-	}
-
-	@Override
-	ExtAsync newAsync() {
-		return new ExtAsync();
-	}
-
-	@Override
-	public ExtAsync async() {
-		return extAsync;
+	public RemoteCall<Void> detachRule(String campaignId, String ruleId) {
+		return RemoteCall.of(api.detachRuleFromCampaign(campaignId, ruleId));
 	}
 
 }
