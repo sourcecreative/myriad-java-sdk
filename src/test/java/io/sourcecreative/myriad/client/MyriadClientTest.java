@@ -29,7 +29,7 @@ public class MyriadClientTest {
 				.voucher(VoucherConfig.builder().build()).build();
 
 		// sync execution
-		CampaignResponse response = myriad.campaigns().create(campaign).send();
+		//CampaignResponse response = myriad.campaigns().create(campaign).send();
 
 		// validate
 		

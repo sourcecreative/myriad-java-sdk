@@ -19,7 +19,7 @@ public class SegmentResponse {
 	private String name;
 	
 	// number of customers
-	private Integer customerCount;
+	private int customerCount;
 
 	private Date createdAt;
 	

@@ -17,6 +17,8 @@ import io.sourcecreative.myriad.client.model.customer.PaginatedCustomersResponse
 import io.sourcecreative.myriad.client.model.customer.UpdateCustomers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeOneOffVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeVouchers;
+import io.sourcecreative.myriad.client.model.distribution.DistributeVouchersBySegment;
+import io.sourcecreative.myriad.client.model.distribution.DistributionResponse;
 import io.sourcecreative.myriad.client.model.distribution.DistributionsResponse;
 import io.sourcecreative.myriad.client.model.distribution.PaginatedDistributionsResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
@@ -25,8 +27,8 @@ import io.sourcecreative.myriad.client.model.redemption.RedeemVoucher;
 import io.sourcecreative.myriad.client.model.redemption.RedeemVouchers;
 import io.sourcecreative.myriad.client.model.redemption.RedemptionResponse;
 import io.sourcecreative.myriad.client.model.redemption.RedemptionsResponse;
-import io.sourcecreative.myriad.client.model.segment.CreateSegment;
 import io.sourcecreative.myriad.client.model.segment.PaginatedSegmentsResponse;
+import io.sourcecreative.myriad.client.model.segment.Segment;
 import io.sourcecreative.myriad.client.model.segment.SegmentResponse;
 import io.sourcecreative.myriad.client.model.validation.PaginatedRulesResponse;
 import io.sourcecreative.myriad.client.model.validation.Rule;
@@ -151,7 +153,7 @@ public interface MyriadApi {
 
   // SEGMENTS
   @POST("/segments")
-  Call<SegmentResponse> createSegment(@Body CreateSegment createSegment);
+  Call<SegmentResponse> createSegment(@Body Segment createSegment);
   
   @GET("/segments/{id}")
   Call<SegmentResponse> getSegment(@Path("id")String segmentId);
@@ -168,6 +170,9 @@ public interface MyriadApi {
   // Vouchers will be automatically generated in the distribution process
   @POST("/distributions/batch")
   Call<DistributionsResponse> distributeVouchers(@Body DistributeVouchers distributeVoucher);
+  
+  @POST("/distributions")
+  Call<PaginatedDistributionsResponse> distributeVouchersBySegment(@Body DistributeVouchersBySegment distributionRequest);
   
   @POST("/distributions/batch/oneoff")
   Call<DistributionsResponse> distributeOneOffVouchers(@Body DistributeOneOffVouchers oneOffVouchers);

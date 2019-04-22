@@ -17,7 +17,7 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class CreateSegment {
+public class Segment {
 	@NonNull
 	private String name;
 	
