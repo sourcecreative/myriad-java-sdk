@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.sourcecreative.myriad.client.model.promotion.Tier;
-import io.sourcecreative.myriad.client.model.voucher.Voucher;
+import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Singular;
@@ -30,7 +30,7 @@ public class UpdateCampaign {
 
 	private Date expiry;
 	
-	private Voucher voucher;
+	private VoucherConfig voucher;
 	
 	@Singular("tier")
 	private List<Tier> promotion;

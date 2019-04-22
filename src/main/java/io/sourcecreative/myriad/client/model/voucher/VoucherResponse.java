@@ -19,7 +19,7 @@ public class VoucherResponse {
 
 	private String code;
 	
-	private Voucher config;
+	private VoucherConfig config;
 	
 	private VoucherStatus status;
 	

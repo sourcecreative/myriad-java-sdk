@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
-import io.sourcecreative.myriad.client.model.voucher.Voucher;
+import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
 
 public class MyriadClientTest {
 
@@ -26,7 +26,7 @@ public class MyriadClientTest {
 				.name("XMAS-PROMO")
 				.category("New Customer")
 				.effective(Date.valueOf("2019-04-15"))
-				.voucher(Voucher.builder().build()).build();
+				.voucher(VoucherConfig.builder().build()).build();
 
 		// sync execution
 		CampaignResponse response = myriad.campaigns().create(campaign).send();

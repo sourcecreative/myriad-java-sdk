@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class Voucher {
+public class VoucherConfig {
 	private VoucherType type;
 	
 	// when type is COUPON
