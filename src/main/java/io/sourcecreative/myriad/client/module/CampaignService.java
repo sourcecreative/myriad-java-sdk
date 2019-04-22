@@ -6,13 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
+import io.sourcecreative.myriad.client.model.campaign.AddRulesToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.ImportVouchersToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.validation.AddRules;
 
 public class CampaignService extends Service {
 
@@ -52,7 +52,7 @@ public class CampaignService extends Service {
 		return RemoteCall.of(api.importVouchersToCampaign(campaignId, importVouchers));
 	}
 
-	public RemoteCall<CampaignResponse> attachRules(String campaignId, AddRules addRules) {
+	public RemoteCall<CampaignResponse> attachRules(String campaignId, AddRulesToCampaign addRules) {
 		return RemoteCall.of(api.attachRulesToCampaign(campaignId, addRules));
 	}
 

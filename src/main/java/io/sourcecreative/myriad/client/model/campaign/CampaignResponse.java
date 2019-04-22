@@ -6,7 +6,7 @@ import java.util.Map;
 
 import io.sourcecreative.myriad.client.model.promotion.TierResponse;
 import io.sourcecreative.myriad.client.model.validation.RuleResponse;
-import io.sourcecreative.myriad.client.model.voucher.VoucherResponse;
+import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +43,7 @@ public class CampaignResponse {
 	private Date expiry;
 
 	// voucher definition if this is a VOUCHER campaign
-	private VoucherResponse voucher;
+	private VoucherConfig voucher;
 	
 	// promotion definition if this is a PROMOTION campaign
 	private List<TierResponse> promotion;

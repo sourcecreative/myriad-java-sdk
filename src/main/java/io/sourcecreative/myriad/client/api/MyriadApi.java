@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
+import io.sourcecreative.myriad.client.model.campaign.AddRulesToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
@@ -27,7 +28,6 @@ import io.sourcecreative.myriad.client.model.redemption.RedemptionsResponse;
 import io.sourcecreative.myriad.client.model.segment.CreateSegment;
 import io.sourcecreative.myriad.client.model.segment.PaginatedSegmentsResponse;
 import io.sourcecreative.myriad.client.model.segment.SegmentResponse;
-import io.sourcecreative.myriad.client.model.validation.AddRules;
 import io.sourcecreative.myriad.client.model.validation.PaginatedRulesResponse;
 import io.sourcecreative.myriad.client.model.validation.Rule;
 import io.sourcecreative.myriad.client.model.validation.RuleResponse;
@@ -78,7 +78,7 @@ public interface MyriadApi {
   Call<CampaignResponse> importVouchersToCampaign(@Path("id") String campaignId, @Body ImportVouchersToCampaign importVouchers);
   
   @POST("/campaigns/{id}/rules")
-  Call<CampaignResponse> attachRulesToCampaign(@Path("id")String campaignId, @Body AddRules addRulesToCampaign);
+  Call<CampaignResponse> attachRulesToCampaign(@Path("id")String campaignId, @Body AddRulesToCampaign addRulesToCampaign);
 
   @DELETE("/campaigns/{id}/rules")
   Call<Void> detachRulesFromCampaign(@Path("id")String campaignId);
@@ -111,7 +111,7 @@ public interface MyriadApi {
   
   // Rules added to voucher override rules assigned to campaign
   @POST("/vouchers/{id}/rules")
-  Call<AddRulesToVoucherResponse> attachRulesToVoucher(@Path("id")String voucherId, @Body AddRules addRulesToVoucher);
+  Call<AddRulesToVoucherResponse> attachRulesToVoucher(@Path("id")String voucherId, @Body AddRulesToCampaign addRulesToVoucher);
 
   @DELETE("/vouchers/{id}/rules")
   Call<Void> detachRulesFromVoucher(@Path("id")String voucherId);
