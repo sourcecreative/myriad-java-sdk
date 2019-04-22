@@ -2,13 +2,13 @@ package io.sourcecreative.myriad.client.api;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddRulesToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
-import io.sourcecreative.myriad.client.model.campaign.ImportVouchersToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
 import io.sourcecreative.myriad.client.model.customer.Customer;
@@ -20,6 +20,7 @@ import io.sourcecreative.myriad.client.model.distribution.DistributeOneOffVouche
 import io.sourcecreative.myriad.client.model.distribution.DistributeVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributionsResponse;
 import io.sourcecreative.myriad.client.model.distribution.PaginatedDistributionsResponse;
+import io.sourcecreative.myriad.client.model.promotion.Tier;
 import io.sourcecreative.myriad.client.model.redemption.PaginatedRedemptionsResponse;
 import io.sourcecreative.myriad.client.model.redemption.RedeemVoucher;
 import io.sourcecreative.myriad.client.model.redemption.RedeemVouchers;
@@ -74,17 +75,26 @@ public interface MyriadApi {
   @DELETE("/campaigns/{id}")
   Call<Void> deleteCampaign(@Path("id") String campaignId);
 
-  @PUT("/campaigns/{id}/vouchers")
-  Call<CampaignResponse> importVouchersToCampaign(@Path("id") String campaignId, @Body ImportVouchersToCampaign importVouchers);
+  @POST("/campaigns/{id}/vouchers")
+  Call<CampaignResponse> importVouchersToCampaign(@Path("id") String campaignId, @Body List<AddVoucherToCampaign> importVouchers);
   
   @POST("/campaigns/{id}/rules")
-  Call<CampaignResponse> attachRulesToCampaign(@Path("id")String campaignId, @Body AddRulesToCampaign addRulesToCampaign);
+  Call<CampaignResponse> attachRulesToCampaign(@Path("id")String campaignId, @Body Set<Rule> addRulesToCampaign);
 
   @DELETE("/campaigns/{id}/rules")
-  Call<Void> detachRulesFromCampaign(@Path("id")String campaignId);
+  Call<CampaignResponse> detachRulesFromCampaign(@Path("id")String campaignId);
   
   @DELETE("/campaigns/{id}/rules/{ruleId}")
-  Call<Void> detachRuleFromCampaign(@Path("id")String campaignId, @Path("ruleId")String ruleId);
+  Call<CampaignResponse> detachRuleFromCampaign(@Path("id")String campaignId, @Path("ruleId")String ruleId);
+  
+  @POST("/campaigns/{id}/tiers")
+  Call<CampaignResponse> addTiersToCampaign(@Path("id")String campaignId, @Body List<Tier> addTiersToCampaign);
+  
+  @DELETE("/campaigns/{id}/tiers/{tierId}")
+  Call<CampaignResponse> removeTierFromCampaign(@Path("id")String campaignId, @Path("tierId")String tierId);
+  
+  @DELETE("/campaigns/{id}/tiers")
+  Call<CampaignResponse> removeTiersFromCampaign(@Path("idd")String campaignId);
   
   // VOUCHERS
 
