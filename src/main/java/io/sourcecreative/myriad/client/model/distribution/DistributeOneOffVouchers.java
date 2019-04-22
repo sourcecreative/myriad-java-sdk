@@ -3,7 +3,7 @@ package io.sourcecreative.myriad.client.model.distribution;
 import java.util.List;
 import java.util.Map;
 
-import io.sourcecreative.myriad.client.model.customer.CustomerResponse;
+import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class DistributeOneOffVouchers {
 
 	// customers who receive voucher
 	@NonNull @Singular("customer")
-	private List<CustomerResponse> customers;
+	private List<Customer> customers;
 
 	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
