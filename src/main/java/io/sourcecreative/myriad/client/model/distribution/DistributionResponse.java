@@ -21,6 +21,8 @@ public class DistributionResponse {
 	private String id;
 	
 	private Date createdAt;
+	
+	private DistributionStatus status;
 
 	private Map<String, Object> metadata;
 
@@ -32,6 +34,6 @@ public class DistributionResponse {
 	
 	// voucher to be distributed
 	@NonNull
-	private VoucherResponse vouchers;
+	private VoucherResponse voucher;
 	
 }

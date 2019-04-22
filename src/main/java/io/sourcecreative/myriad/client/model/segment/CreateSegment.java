@@ -1,13 +1,14 @@
 package io.sourcecreative.myriad.client.model.segment;
 
-import java.util.List;
 import java.util.Map;
 
+import io.sourcecreative.myriad.client.model.validation.Rule;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -17,15 +18,14 @@ import lombok.ToString;
 @Getter
 @ToString
 public class CreateSegment {
+	@NonNull
 	private String name;
 	
-	// caller must provide either a list of customer ids, or a customer filter that
-	// defines which customers belong to this segment
-	private List<String> customerIds;
+	private String description;
 	
-	// caller must provide either a customer filter that defines which customers 
-	// belong to this segment, or a list of customer ids
-	private Map<String, Object> filter;
+	// Use a rule to automatically segment customers 
+	@NonNull
+	private Rule filter;
 	
 	@Singular("metadata")
 	private Map<String, Object> metadata;	

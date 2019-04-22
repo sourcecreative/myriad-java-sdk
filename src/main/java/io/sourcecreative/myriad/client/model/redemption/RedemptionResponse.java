@@ -18,7 +18,9 @@ public class RedemptionResponse {
 	private String id;
 	
 	private Date createdAt;
-
+	
+	private RedemptionStatus status;
+	
 	// who creates the redemption
 	private String customerId;
 	
