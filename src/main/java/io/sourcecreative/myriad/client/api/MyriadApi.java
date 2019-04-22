@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Set;
 
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.AddRulesToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
@@ -121,7 +120,7 @@ public interface MyriadApi {
   
   // Rules added to voucher override rules assigned to campaign
   @POST("/vouchers/{id}/rules")
-  Call<AddRulesToVoucherResponse> attachRulesToVoucher(@Path("id")String voucherId, @Body AddRulesToCampaign addRulesToVoucher);
+  Call<AddRulesToVoucherResponse> attachRulesToVoucher(@Path("id")String voucherId, @Body Set<Rule> addRulesToVoucher);
 
   @DELETE("/vouchers/{id}/rules")
   Call<Void> detachRulesFromVoucher(@Path("id")String voucherId);
