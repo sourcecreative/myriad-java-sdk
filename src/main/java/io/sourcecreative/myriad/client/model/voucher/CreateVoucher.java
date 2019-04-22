@@ -1,7 +1,6 @@
 package io.sourcecreative.myriad.client.model.voucher;
 
 import java.util.Map;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;

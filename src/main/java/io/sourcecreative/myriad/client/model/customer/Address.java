@@ -1,9 +1,8 @@
 package io.sourcecreative.myriad.client.model.customer;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -13,10 +12,13 @@ import lombok.ToString;
 public class Address {
 	private String street;
 
+	@NonNull
 	private String city;
 
+	@NonNull
 	private String state;
-
+	
+	@NonNull
 	private String country;
 
 	private String postalCode;
