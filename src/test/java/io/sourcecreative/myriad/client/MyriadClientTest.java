@@ -1,5 +1,6 @@
 package io.sourcecreative.myriad.client;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
@@ -29,8 +30,8 @@ public class MyriadClientTest {
 				.voucher(VoucherConfig.builder().build()).build();
 
 		// sync execution
-		//CampaignResponse response = myriad.campaigns().create(campaign).send();
-
+		CampaignResponse response = myriad.campaigns().create(campaign).send();
+		assertNotNull(response.getId());
 		// validate
 		
 		Facts facts = new Facts();

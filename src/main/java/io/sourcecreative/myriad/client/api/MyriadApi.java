@@ -18,7 +18,6 @@ import io.sourcecreative.myriad.client.model.customer.UpdateCustomers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeOneOffVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeVouchersBySegment;
-import io.sourcecreative.myriad.client.model.distribution.DistributionResponse;
 import io.sourcecreative.myriad.client.model.distribution.DistributionsResponse;
 import io.sourcecreative.myriad.client.model.distribution.PaginatedDistributionsResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
