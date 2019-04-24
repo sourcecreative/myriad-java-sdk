@@ -36,7 +36,6 @@ import io.sourcecreative.myriad.client.model.validation.ValidateVoucher;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucherResponse;
 import io.sourcecreative.myriad.client.model.voucher.CreateVoucher;
 import io.sourcecreative.myriad.client.model.voucher.EnableVoucher;
-import io.sourcecreative.myriad.client.model.voucher.ImportVouchers;
 import io.sourcecreative.myriad.client.model.voucher.PaginatedVouchersResponse;
 import io.sourcecreative.myriad.client.model.voucher.UpdateVoucher;
 import io.sourcecreative.myriad.client.model.voucher.VoucherResponse;
@@ -97,26 +96,28 @@ public interface MyriadApi {
   
   // VOUCHERS
 
+  // create a voucher and assign to the creation account
   @POST("/vouchers")
   Call<VoucherResponse> createVoucher(@Body CreateVoucher createVoucher);
 
-  @GET("/vouchers/{code}")
-  Call<VoucherResponse> getVoucher(@Path("code") String code);
+  @GET("/vouchers/{id}")
+  Call<VoucherResponse> getVoucher(@Path("id") String voucherId);
 
-  @PUT("/vouchers/{code}")
-  Call<VoucherResponse> updateVoucher(@Path("code") String code, @Body UpdateVoucher updateVoucher);
+  @PUT("/vouchers/{id}")
+  Call<VoucherResponse> updateVoucher(@Path("id") String voucherId, @Body UpdateVoucher updateVoucher);
 
-  @DELETE("/vouchers/{code}")
-  Call<Void> deleteVoucher(@Path("code") String code);
+  @DELETE("/vouchers/{id}")
+  Call<Void> deleteVoucher(@Path("id") String voucherId);
 
   @GET("/vouchers")
   Call<PaginatedVouchersResponse> listVouchers(@QueryMap Map<String, Object> filter);
 
-  @PATCH("/vouchers/{code}")
-  Call<VoucherResponse> enable(@Path("code") String code, @Body EnableVoucher disableVoucher);
+  @PATCH("/vouchers/{id}")
+  Call<VoucherResponse> enable(@Path("id") String voucherId, @Body EnableVoucher disableVoucher);
 
+  // create a list of vouchers and assign to the creation account
   @POST("/vouchers/import")
-  Call<Void> importVouchers(@Body ImportVouchers vouchers);
+  Call<Void> importVouchers(@Body List<CreateVoucher> vouchers);
   
   // Rules added to voucher override rules assigned to campaign
   @POST("/vouchers/{id}/rules")
@@ -130,6 +131,7 @@ public interface MyriadApi {
 
   
   // CUSTOMERS
+  // 
 
   @POST("/customers")
   Call<CustomerResponse> createCustomer(@Body Customer customer);
@@ -195,7 +197,7 @@ public interface MyriadApi {
   @GET("/vouchers/{id}/redemptions")
   Call<PaginatedRedemptionsResponse> listRedemptionsByVoucher(@QueryMap Map<String, Object> filter);
   
-  // VALIDATION RULES
+  // RULES
   
   // create custom validation rule
   @POST("/rules")

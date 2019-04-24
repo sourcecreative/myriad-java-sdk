@@ -18,7 +18,7 @@ import io.sourcecreative.myriad.client.model.rule.Rule;
 
 public class CampaignService extends Service {
 
-	public CampaignService(MyriadApi api, ObjectMapper objectMapper) {
+	CampaignService(MyriadApi api, ObjectMapper objectMapper) {
 		super(api, objectMapper);
 	}
 

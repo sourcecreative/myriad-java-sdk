@@ -14,6 +14,7 @@ import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.CampaignType;
 import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
+import io.sourcecreative.myriad.client.model.segment.Segment;
 import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 

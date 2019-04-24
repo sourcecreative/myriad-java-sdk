@@ -33,6 +33,8 @@ public class MyriadModule {
 		campaignService = new CampaignService(myriadApi, objectMapper);
 		voucherService = new VoucherService(myriadApi, objectMapper);
 		customerService = new CustomerService(myriadApi, objectMapper);
+		distributionService = new DistributionService(myriadApi, objectMapper);
+		redemptionService = new RedemptionService(myriadApi, objectMapper);
 	}
 	
 }

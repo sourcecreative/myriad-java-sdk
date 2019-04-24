@@ -19,9 +19,9 @@ import lombok.ToString;
 @Builder
 @ToString
 public class CreateVoucher {
-	// if campaignId is provided, the campaign must be AUTO_UPDATE type
+	// if campaignId is provided, the campaign must allow minting
 	private String campaignId;
-	// client may provide a code
+	// client may provide a code. if not set, server shall create a code
 	private String code;
 
 	@JsonUnwrapped
