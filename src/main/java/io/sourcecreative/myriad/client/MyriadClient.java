@@ -12,8 +12,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import io.sourcecreative.myriad.client.api.APIError;
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.module.CampaignService;
+import io.sourcecreative.myriad.client.module.CustomerService;
+import io.sourcecreative.myriad.client.module.DistributionService;
 import io.sourcecreative.myriad.client.module.MyriadModule;
-import lombok.AccessLevel;
+import io.sourcecreative.myriad.client.module.RedemptionService;
+import io.sourcecreative.myriad.client.module.VoucherService;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -130,8 +133,20 @@ public class MyriadClient {
 		return module.getCampaignService();
 	}
 	
+	public VoucherService vouchers() {
+		return module.getVoucherService();
+	}
 	
+	public CustomerService customers() {
+		return module.getCustomerService();
+	}
 	
+	public DistributionService distributions() {
+		return module.getDistributionService();
+	}
 	
+	public RedemptionService redemptions() {
+		return module.getRedemptionService();
+	}
 
 }

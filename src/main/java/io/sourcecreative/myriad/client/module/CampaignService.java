@@ -14,7 +14,7 @@ import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
-import io.sourcecreative.myriad.client.model.validation.Rule;
+import io.sourcecreative.myriad.client.model.rule.Rule;
 
 public class CampaignService extends Service {
 

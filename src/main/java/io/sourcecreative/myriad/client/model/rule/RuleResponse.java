@@ -1,21 +1,21 @@
-package io.sourcecreative.myriad.client.model.validation;
+package io.sourcecreative.myriad.client.model.rule;
 
 import java.util.List;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @ToString
-public class Rule {
+public class RuleResponse {
+	@NonNull
+	private String id;
+	
 	// rule name, e.g., "order amount limit"
 	// name must be unique in the app scope
 	private String name;
@@ -32,7 +32,8 @@ public class Rule {
 	@Singular("action")
 	private List<String> actions;
 	
-	@Builder.Default
-	private int priority = 1;	
+	private RuleType type;
+	
+	private int priority;	
 
 }

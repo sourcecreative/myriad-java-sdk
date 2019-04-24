@@ -3,7 +3,7 @@ package io.sourcecreative.myriad.client.model.promotion;
 import java.util.Map;
 import java.util.Set;
 
-import io.sourcecreative.myriad.client.model.validation.RuleResponse;
+import io.sourcecreative.myriad.client.model.rule.RuleResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

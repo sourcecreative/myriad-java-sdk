@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.sourcecreative.myriad.client.model.promotion.TierResponse;
-import io.sourcecreative.myriad.client.model.validation.RuleResponse;
+import io.sourcecreative.myriad.client.model.rule.RuleResponse;
 import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
 import lombok.AccessLevel;
 import lombok.Getter;

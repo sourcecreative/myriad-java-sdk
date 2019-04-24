@@ -1,13 +1,14 @@
 package io.sourcecreative.myriad.client.model.voucher;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import io.sourcecreative.myriad.client.model.rule.RuleResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,8 +34,8 @@ public class VoucherResponse {
 
 	private Map<String, Object> metadata;
 
-	@Singular("asset")
-	private Map<String, Object> assets;
+	// validation rules if any
+	private List<RuleResponse> rules;
 
 //	private Boolean isReferralCode;
 

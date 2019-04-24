@@ -26,15 +26,14 @@ import io.sourcecreative.myriad.client.model.redemption.RedeemVoucher;
 import io.sourcecreative.myriad.client.model.redemption.RedeemVouchers;
 import io.sourcecreative.myriad.client.model.redemption.RedemptionResponse;
 import io.sourcecreative.myriad.client.model.redemption.RedemptionsResponse;
+import io.sourcecreative.myriad.client.model.rule.PaginatedRulesResponse;
+import io.sourcecreative.myriad.client.model.rule.Rule;
+import io.sourcecreative.myriad.client.model.rule.RuleResponse;
 import io.sourcecreative.myriad.client.model.segment.PaginatedSegmentsResponse;
 import io.sourcecreative.myriad.client.model.segment.Segment;
 import io.sourcecreative.myriad.client.model.segment.SegmentResponse;
-import io.sourcecreative.myriad.client.model.validation.PaginatedRulesResponse;
-import io.sourcecreative.myriad.client.model.validation.Rule;
-import io.sourcecreative.myriad.client.model.validation.RuleResponse;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucher;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucherResponse;
-import io.sourcecreative.myriad.client.model.voucher.AddRulesToVoucherResponse;
 import io.sourcecreative.myriad.client.model.voucher.CreateVoucher;
 import io.sourcecreative.myriad.client.model.voucher.EnableVoucher;
 import io.sourcecreative.myriad.client.model.voucher.ImportVouchers;
@@ -121,13 +120,13 @@ public interface MyriadApi {
   
   // Rules added to voucher override rules assigned to campaign
   @POST("/vouchers/{id}/rules")
-  Call<AddRulesToVoucherResponse> attachRulesToVoucher(@Path("id")String voucherId, @Body Set<Rule> addRulesToVoucher);
+  Call<VoucherResponse> attachRulesToVoucher(@Path("id")String voucherId, @Body Set<Rule> addRulesToVoucher);
 
   @DELETE("/vouchers/{id}/rules")
-  Call<Void> detachRulesFromVoucher(@Path("id")String voucherId);
+  Call<VoucherResponse> detachRulesFromVoucher(@Path("id")String voucherId);
   
   @DELETE("/vouchers/{id}/rules/{ruleId}")
-  Call<Void> detachRuleFromVoucher(@Path("id")String voucherId, @Path("ruleId")String ruleId);
+  Call<VoucherResponse> detachRuleFromVoucher(@Path("id")String voucherId, @Path("ruleId")String ruleId);
 
   
   // CUSTOMERS

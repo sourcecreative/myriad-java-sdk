@@ -13,6 +13,7 @@ import org.junit.Test;
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.CampaignType;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
 import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
@@ -30,7 +31,7 @@ public class MyriadClientTest {
 		Condition c = new MVELCondition("campaign.category == 'New Customer'");
 //		Condition c = new MVELCondition("campaign.name == 'XMAS-PROMO'");
 	
-		Campaign campaign = Campaign.builder()
+		Campaign campaign = VoucherCampaign.builder()
 				.name("XMAS-PROMO")
 				.type(CampaignType.VOUCHER)
 				.totalSupply(100)

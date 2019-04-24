@@ -2,7 +2,7 @@ package io.sourcecreative.myriad.client.model.segment;
 
 import java.util.Map;
 
-import io.sourcecreative.myriad.client.model.validation.Rule;
+import io.sourcecreative.myriad.client.model.rule.Rule;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

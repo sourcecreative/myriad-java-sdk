@@ -1,8 +1,7 @@
-package io.sourcecreative.myriad.client.model.voucher;
+package io.sourcecreative.myriad.client.model.rule;
 
 import java.util.List;
 
-import io.sourcecreative.myriad.client.model.validation.RuleResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +12,13 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @ToString
-public class AddRulesToVoucherResponse extends VoucherResponse {
-	// rules added to voucher override rules added to the linked campaign
+public class PaginatedRulesResponse {
+	private Integer total;
+	
+	private Integer page;
+	
+	private Integer size;
+	
+	// including custom rules and system rules
 	private List<RuleResponse> rules;
-
 }
