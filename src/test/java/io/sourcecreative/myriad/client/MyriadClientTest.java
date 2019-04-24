@@ -12,19 +12,28 @@ import org.junit.Test;
 
 import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.CampaignType;
 import io.sourcecreative.myriad.client.model.voucher.VoucherConfig;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class MyriadClientTest {
 
 	@Test
 	public void test() {
-		MyriadClient myriad = MyriadClient.builder().build();
+		MyriadClient myriad = MyriadClient.builder()
+				.baseUrl("http://72ec40ea-aeb2-43bb-9627-94f0f35e6c06.mock.pstmn.io")
+				.appId("appid")
+				.appSecret("appsecret")
+				.logLevel(Level.BODY)
+				.build();
 						
 		Condition c = new MVELCondition("campaign.category == 'New Customer'");
 //		Condition c = new MVELCondition("campaign.name == 'XMAS-PROMO'");
 	
 		Campaign campaign = Campaign.builder()
 				.name("XMAS-PROMO")
+				.type(CampaignType.VOUCHER)
+				.totalSupply(100)
 				.category("New Customer")
 				.effective(Date.valueOf("2019-04-15"))
 				.voucher(VoucherConfig.builder().build()).build();

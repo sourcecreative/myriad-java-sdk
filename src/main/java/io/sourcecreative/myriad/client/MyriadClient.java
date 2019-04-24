@@ -13,6 +13,7 @@ import io.sourcecreative.myriad.client.api.APIError;
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.module.CampaignService;
 import io.sourcecreative.myriad.client.module.MyriadModule;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
@@ -37,7 +38,7 @@ public class MyriadClient {
 	private final String appSecret;
 
 	@Getter
-	private final Level logLevel;
+	private Level logLevel;
 	
 	private MyriadModule module;
 	
@@ -112,13 +113,11 @@ public class MyriadClient {
 	}
 	
 	private Retrofit initRetrofit(OkHttpClient okHttpClient, ObjectMapper objectMapper) {
-		Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
+		return new Retrofit.Builder()
 				.baseUrl(baseUrl)
 				.addConverterFactory(JacksonConverterFactory.create(objectMapper))
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-				.client(okHttpClient);
-		
-		return retrofitBuilder.build();
+				.client(okHttpClient).build();		
 	}
 	
 	private MyriadApi initMyriadApi() {

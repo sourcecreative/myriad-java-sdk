@@ -6,31 +6,20 @@ import io.sourcecreative.myriad.client.api.MyriadApi;
 import lombok.Builder;
 import lombok.NonNull;
 
-@Builder
 public class MyriadModule {
-	@NonNull
-	private MyriadApi myriadApi;
-	
-	@NonNull
-	private ObjectMapper objectMapper;
-	
 	private CampaignService campaignService;
 	
 	@Builder
-	private MyriadModule(MyriadApi api, ObjectMapper om) {
-		this.myriadApi = api;
-		this.objectMapper = om;
-		
-		init();
+	private MyriadModule(@NonNull MyriadApi myriadApi, @NonNull ObjectMapper objectMapper) {
+		init(myriadApi,objectMapper);
 	}
 	
-	private void init() {
+	private void init(MyriadApi myriadApi, ObjectMapper objectMapper) {
+		// init services
 		campaignService = new CampaignService(myriadApi, objectMapper);
 	}
 	
 	public CampaignService getCampaignService() {
 		return campaignService;
 	}
-	
-
 }
