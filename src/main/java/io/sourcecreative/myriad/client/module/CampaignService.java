@@ -9,10 +9,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
-import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgram;
+import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgramResponse;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
+import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
+import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
 import io.sourcecreative.myriad.client.model.rule.Rule;
 
@@ -22,10 +27,18 @@ public class CampaignService extends Service {
 		super(api, objectMapper);
 	}
 
-	public RemoteCall<CampaignResponse> create(Campaign campaign) {
+	public RemoteCall<VoucherCampaignResponse> create(VoucherCampaign campaign) {
 		return RemoteCall.of(api.createCampaign(campaign));
 	}
-	
+
+	public RemoteCall<PromotionCampaignResponse> create(PromotionCampaign campaign) {
+		return RemoteCall.of(api.createCampaign(campaign));
+	}
+
+	public RemoteCall<LoyaltyProgramResponse> create(LoyaltyProgram campaign) {
+		return RemoteCall.of(api.createCampaign(campaign));
+	}
+
 	public RemoteCall<CampaignResponse> addVoucher(String campaignId, AddVoucherToCampaign addVoucher) {
 		return RemoteCall.of(api.addVoucherToCampaign(campaignId, addVoucher));
 	}

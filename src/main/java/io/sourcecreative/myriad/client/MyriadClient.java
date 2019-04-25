@@ -8,14 +8,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import io.sourcecreative.myriad.client.api.APIError;
 import io.sourcecreative.myriad.client.api.MyriadApi;
+import io.sourcecreative.myriad.client.json.CampaignResponseDeserializer;
+import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.module.CampaignService;
 import io.sourcecreative.myriad.client.module.CustomerService;
 import io.sourcecreative.myriad.client.module.DistributionService;
 import io.sourcecreative.myriad.client.module.MyriadModule;
 import io.sourcecreative.myriad.client.module.RedemptionService;
+import io.sourcecreative.myriad.client.module.SegmentService;
 import io.sourcecreative.myriad.client.module.VoucherService;
 import lombok.Builder;
 import lombok.Getter;
@@ -60,9 +64,10 @@ public class MyriadClient {
 		this.baseUrl = baseUrl;
 		this.logLevel = logLevel;
 		
+		ObjectMapper mapper = initObjectMapper();
 		module = MyriadModule.builder()
-				.myriadApi(initMyriadApi())
-				.objectMapper(initObjectMapper())
+				.myriadApi(initMyriadApi(mapper))
+				.objectMapper(mapper)
 				.build();
 		
 	}
@@ -73,16 +78,19 @@ public class MyriadClient {
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
-//    SimpleModule jsonParsingModule = new SimpleModule();
+		SimpleModule jsonModule = new SimpleModule();
+		jsonModule.addDeserializer(CampaignResponse.class, new CampaignResponseDeserializer());
+		
 //    jsonParsingModule.addSerializer(Date.class, new DateSerializer(Constants.ENDPOINT_DATE_FORMAT));
 //    jsonParsingModule.addDeserializer(Date.class, new DateDeserializer(Constants.ENDPOINT_DATE_FORMAT, Constants.ENDPOINT_SECONDARY_DATE_FORMAT));
 //    jsonParsingModule.addDeserializer(CampaignsResponse.class, new CampaignsResponseDeserializer(builder.apiVersion));
 //    jsonParsingModule.addDeserializer(VouchersResponse.class, new VouchersResponseDeserializer(builder.apiVersion));
-//    mapper.registerModule(jsonParsingModule);
+		
+		mapper.registerModule(jsonModule);
 		return mapper;
 	}
 	
-	private OkHttpClient initOkHttpClient() {
+	private OkHttpClient initOkHttpClient(ObjectMapper mapper) {
 		OkHttpClient.Builder okClientBuilder = new OkHttpClient.Builder();
 		
 		okClientBuilder.addInterceptor(new Interceptor() {
@@ -108,7 +116,7 @@ public class MyriadClient {
 				if (response.isSuccessful())
 					return response;
 				// convert error response to APIError and throw
-				throw new ObjectMapper().readValue(response.body().charStream(), APIError.class);
+				throw mapper.readValue(response.body().charStream(), APIError.class);
 			}
 		});
 		
@@ -123,8 +131,8 @@ public class MyriadClient {
 				.client(okHttpClient).build();		
 	}
 	
-	private MyriadApi initMyriadApi() {
-		return initRetrofit(initOkHttpClient(), initObjectMapper()).create(MyriadApi.class);
+	private MyriadApi initMyriadApi(ObjectMapper mapper) {
+		return initRetrofit(initOkHttpClient(mapper), mapper).create(MyriadApi.class);
 	}
 
 	/// helper functions
@@ -147,6 +155,10 @@ public class MyriadClient {
 	
 	public RedemptionService redemptions() {
 		return module.getRedemptionService();
+	}
+	
+	public SegmentService segments() {
+		return module.getSegmentService();
 	}
 
 }

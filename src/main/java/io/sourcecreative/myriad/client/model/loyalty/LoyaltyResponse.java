@@ -1,4 +1,4 @@
-package io.sourcecreative.myriad.client.model.voucher;
+package io.sourcecreative.myriad.client.model.loyalty;
 
 import java.util.Date;
 import java.util.List;
@@ -6,26 +6,26 @@ import java.util.Map;
 
 import io.sourcecreative.myriad.client.model.customer.CustomerResponse;
 import io.sourcecreative.myriad.client.model.rule.RuleResponse;
+import io.sourcecreative.myriad.client.model.voucher.CodeConfig;
+import io.sourcecreative.myriad.client.model.voucher.VoucherStatus;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @ToString
-public class VoucherResponse {
+public class LoyaltyResponse {
 	private String campaignId;
 
 	private String code;
 	
-	private VoucherConfig config;
+	private CodeConfig codeConfig;
+		
+	private int points;
 	
-	private VoucherStatus status;
-	
-	private int redeemedQuantity;
+	private int balance;
 	
 	// to whom the voucher was distributed
 	private CustomerResponse customer;
@@ -34,7 +34,7 @@ public class VoucherResponse {
 
 	private Map<String, Object> metadata;
 
-	// validation rules if any
+	// reward rules if any
 	private List<RuleResponse> rules;
 
 //	private Boolean isReferralCode;

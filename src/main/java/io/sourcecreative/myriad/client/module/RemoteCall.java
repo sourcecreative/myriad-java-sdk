@@ -27,10 +27,12 @@ public class RemoteCall<T> {
 		try {
 			Response<T> response = call.execute();
 			return response.body();
+			
 		} catch(IOException e) {
-			error = APIError.builder().code(502).key("network.error")
+			error = APIError.builder()
+					.code(502)
+					.key("network.error")
 					.message("Network Connection Error")
-					.details(e.getMessage())
 					.build();
 
 		} catch(RuntimeException re) {

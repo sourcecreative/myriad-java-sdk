@@ -1,4 +1,4 @@
-package io.sourcecreative.myriad.client.model.voucher;
+package io.sourcecreative.myriad.client.model.registration;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,20 +10,17 @@ import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Getter
 @Builder
+@Getter
 @ToString
-public class VoucherConfig {
+public class Registration {
+	// client must provide a wallet address to receive rewards and identify itself
 	@NonNull
-	private VoucherType type;
-		
-	// when type is COUPON
-	private Discount discount;
-
-	// max redemption quantity
-	@Builder.Default
-	private Integer redemption = 1;
-
-	private CodeConfig codeConfig;
-
+	private String walletId;
+	
+	private String name;
+	
+	private String description;
+	
+	private String homeDomain;
 }

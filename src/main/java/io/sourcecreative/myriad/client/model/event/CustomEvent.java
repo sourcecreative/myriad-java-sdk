@@ -1,11 +1,15 @@
-package io.sourcecreative.myriad.client.model.voucher;
+package io.sourcecreative.myriad.client.model.event;
 
+import java.util.Map;
+
+import io.sourcecreative.myriad.client.model.customer.Customer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Singular;
 import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -13,17 +17,13 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class VoucherConfig {
+public class CustomEvent {
 	@NonNull
-	private VoucherType type;
-		
-	// when type is COUPON
-	private Discount discount;
-
-	// max redemption quantity
-	@Builder.Default
-	private Integer redemption = 1;
-
-	private CodeConfig codeConfig;
-
+	private String event;
+	
+	@NonNull
+	private Customer customer;
+	
+	@Singular("metadataEntry")
+	private Map<String, Object> metadata;
 }

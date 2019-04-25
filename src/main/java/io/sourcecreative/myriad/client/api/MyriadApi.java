@@ -6,10 +6,15 @@ import java.util.Set;
 
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
-import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgram;
+import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgramResponse;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
+import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
+import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.customer.CustomerResponse;
 import io.sourcecreative.myriad.client.model.customer.CustomersResponse;
@@ -26,6 +31,8 @@ import io.sourcecreative.myriad.client.model.redemption.RedeemVoucher;
 import io.sourcecreative.myriad.client.model.redemption.RedeemVouchers;
 import io.sourcecreative.myriad.client.model.redemption.RedemptionResponse;
 import io.sourcecreative.myriad.client.model.redemption.RedemptionsResponse;
+import io.sourcecreative.myriad.client.model.registration.Registration;
+import io.sourcecreative.myriad.client.model.registration.RegistrationResponse;
 import io.sourcecreative.myriad.client.model.rule.PaginatedRulesResponse;
 import io.sourcecreative.myriad.client.model.rule.Rule;
 import io.sourcecreative.myriad.client.model.rule.RuleResponse;
@@ -50,10 +57,23 @@ import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 public interface MyriadApi {
+  // REGISTRATION
+  @POST("/registrations")
+  Call<RegistrationResponse> register(@Body Registration registration);
 
+  // self de-registration
+  @POST("/registrations/{id}")
+  Call<Void> delete(@Path("id")String regId);
+  
   // CAMPAIGNS
   @POST("/campaigns")
-  Call<CampaignResponse> createCampaign(@Body Campaign createCampaign);
+  Call<VoucherCampaignResponse> createCampaign(@Body VoucherCampaign createCampaign);
+  
+  @POST("/campaigns")
+  Call<PromotionCampaignResponse> createCampaign(@Body PromotionCampaign createCampaign);
+  
+  @POST("/campaigns")
+  Call<LoyaltyProgramResponse> createCampaign(@Body LoyaltyProgram createCampaign);
 
   @POST("/campaigns/{id}/vouchers")
   Call<CampaignResponse> addVoucherToCampaign(@Path("id") String campaignId, @Body AddVoucherToCampaign addVoucherToCampaign);
@@ -195,7 +215,7 @@ public interface MyriadApi {
   Call<RedemptionResponse> getRedemption(@Path("id")String redemptionId);
   
   @GET("/vouchers/{id}/redemptions")
-  Call<PaginatedRedemptionsResponse> listRedemptionsByVoucher(@QueryMap Map<String, Object> filter);
+  Call<PaginatedRedemptionsResponse> listRedemptionsByVoucher(@Path("id")String voucherId, @QueryMap Map<String, Object> filter);
   
   // RULES
   
