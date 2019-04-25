@@ -24,7 +24,7 @@ public class RedeemVoucher {
 	
 	private Order order;
 	
-	@Singular("metadata")
+	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
 
 }

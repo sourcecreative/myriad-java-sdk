@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -13,10 +14,13 @@ import lombok.ToString;
 @Getter
 @ToString
 public class PaginatedRulesResponse {
+	@NonNull
 	private Integer total;
 	
+	@NonNull
 	private Integer page;
 	
+	@NonNull
 	private Integer size;
 	
 	// including custom rules and system rules

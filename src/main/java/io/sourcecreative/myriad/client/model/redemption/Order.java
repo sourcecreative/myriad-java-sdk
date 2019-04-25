@@ -24,7 +24,7 @@ public class Order {
 	@NonNull
 	private Integer amount;
 	
-	@Singular("metadata")
+	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
 
 }

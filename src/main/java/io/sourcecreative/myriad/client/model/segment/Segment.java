@@ -27,7 +27,7 @@ public class Segment {
 	@NonNull
 	private Rule filter;
 	
-	@Singular("metadata")
+	@Singular("metadataEntry")
 	private Map<String, Object> metadata;	
 
 }

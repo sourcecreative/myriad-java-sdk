@@ -1,12 +1,9 @@
 package io.sourcecreative.myriad.client.model.rule;
 
-import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Singular;
 import lombok.ToString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -29,8 +26,7 @@ public class RuleResponse {
 	
 	// actions when condition is met
 	// use MVEL expression
-	@Singular("action")
-	private List<String> actions;
+	private String action;
 	
 	private RuleType type;
 	

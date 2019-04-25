@@ -27,7 +27,7 @@ public class CreateVoucher {
 	@JsonUnwrapped
 	private VoucherConfig config;
 
-	@Singular("metadata")
+	@Singular("metadataEntry")
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private Map<String, Object> metadata;
 }
