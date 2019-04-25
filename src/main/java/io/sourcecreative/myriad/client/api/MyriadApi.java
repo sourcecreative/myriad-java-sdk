@@ -13,8 +13,8 @@ import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.CouponCampaign;
+import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
 import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.customer.CustomerResponse;
 import io.sourcecreative.myriad.client.model.customer.CustomersResponse;
@@ -67,7 +67,7 @@ public interface MyriadApi {
   
   // CAMPAIGNS
   @POST("/campaigns")
-  Call<VoucherCampaignResponse> createCampaign(@Body VoucherCampaign createCampaign);
+  Call<CouponCampaignResponse> createCampaign(@Body CouponCampaign createCampaign);
   
   @POST("/campaigns")
   Call<PromotionCampaignResponse> createCampaign(@Body PromotionCampaign createCampaign);

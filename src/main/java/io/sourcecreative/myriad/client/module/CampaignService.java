@@ -16,8 +16,8 @@ import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.CouponCampaign;
+import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
 import io.sourcecreative.myriad.client.model.rule.Rule;
 
@@ -27,7 +27,7 @@ public class CampaignService extends Service {
 		super(api, objectMapper);
 	}
 
-	public RemoteCall<VoucherCampaignResponse> create(VoucherCampaign campaign) {
+	public RemoteCall<CouponCampaignResponse> create(CouponCampaign campaign) {
 		return RemoteCall.of(api.createCampaign(campaign));
 	}
 

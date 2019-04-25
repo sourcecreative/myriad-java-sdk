@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import io.sourcecreative.myriad.client.MyriadClient;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
 import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.voucher.CreateVoucher;
 import io.sourcecreative.myriad.client.model.voucher.VoucherResponse;
@@ -17,7 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class RedeemVoucherTest {
 	private MyriadClient myriad;
-	private VoucherCampaignResponse campaign;
+	private CouponCampaignResponse campaign;
 	
 	@BeforeClass
 	public void init() {
@@ -27,7 +27,7 @@ public class RedeemVoucherTest {
 				.appSecret("appsecret")
 				.logLevel(Level.BODY)
 				.build();
-		campaign = (VoucherCampaignResponse)myriad.campaigns().findById("1").send();
+		campaign = (CouponCampaignResponse)myriad.campaigns().findById("1").send();
 	}
 	
 	@Test

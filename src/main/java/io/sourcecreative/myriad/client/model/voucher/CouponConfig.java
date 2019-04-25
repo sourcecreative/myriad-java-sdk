@@ -13,11 +13,8 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class VoucherConfig {
+public class CouponConfig {
 	@NonNull
-	private VoucherType type;
-		
-	// when type is COUPON
 	private Discount discount;
 
 	// max redemption quantity

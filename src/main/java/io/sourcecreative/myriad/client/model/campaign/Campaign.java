@@ -3,12 +3,15 @@ package io.sourcecreative.myriad.client.model.campaign;
 import java.util.Date;
 import java.util.Map;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
 @SuperBuilder
 @ToString
@@ -17,9 +20,6 @@ abstract public class Campaign {
 	@NonNull
 	private String name;
 	
-	@NonNull
-	private CampaignType type;
-
 	private String description;
 
 	private String category;

@@ -12,11 +12,11 @@ import lombok.NonNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class LoyaltyProgramResponse extends CampaignResponse {
-	// symbol of the points
+	// symbol of the points, e.g., MYRI
 	@NonNull
 	private String symbol;
 	
-	// name of the points
+	// name of the points, e.g., MYRI Coin
 	@NonNull
 	private String name;
 
