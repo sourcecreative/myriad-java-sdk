@@ -2,8 +2,6 @@ package io.sourcecreative.myriad.client;
 
 import java.io.IOException;
 
-import org.assertj.core.util.Strings;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,55 +19,35 @@ import io.sourcecreative.myriad.client.module.MyriadModule;
 import io.sourcecreative.myriad.client.module.RedemptionService;
 import io.sourcecreative.myriad.client.module.SegmentService;
 import io.sourcecreative.myriad.client.module.VoucherService;
-import lombok.Builder;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Accessors;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-@Accessors(fluent = true)
 public class MyriadClient {
-	@Getter
-	private final String baseUrl;
 
-	@Getter
-	private final String appId;
-
-	@Getter
-	private final String appSecret;
-
-	@Getter
-	private Level logLevel;
+	private ConnectionConfig config;
 	
 	private MyriadModule module;
 	
-	@Builder
-	private MyriadClient(@NonNull String baseUrl, @NonNull String appId, 
-			@NonNull String appSecret, @NonNull Level logLevel) {
+	private MyriadClient(ConnectionConfig config) {
+		this.config = config;
+	}
+	
+	public static MyriadClient create(@NonNull ConnectionConfig config) {
+		MyriadClient client = new MyriadClient(config);
 		
-		if (Strings.isNullOrEmpty(appSecret))
-			throw new IllegalArgumentException("App token must be defined.");
-
-		if (Strings.isNullOrEmpty(appId))
-			throw new IllegalArgumentException("App ID must be defined.");
+		ObjectMapper mapper = client.initObjectMapper();
 		
-		this.appId = appId;
-		this.appSecret = appSecret;
-		this.baseUrl = baseUrl;
-		this.logLevel = logLevel;
-		
-		ObjectMapper mapper = initObjectMapper();
-		module = MyriadModule.builder()
-				.myriadApi(initMyriadApi(mapper))
+		client.module = MyriadModule.builder()
+				.myriadApi(client.initMyriadApi(mapper))
 				.objectMapper(mapper)
 				.build();
 		
+		return client;
 	}
 	
 	private ObjectMapper initObjectMapper() {
@@ -80,12 +58,7 @@ public class MyriadClient {
 
 		SimpleModule jsonModule = new SimpleModule();
 		jsonModule.addDeserializer(CampaignResponse.class, new CampaignResponseDeserializer());
-		
-//    jsonParsingModule.addSerializer(Date.class, new DateSerializer(Constants.ENDPOINT_DATE_FORMAT));
-//    jsonParsingModule.addDeserializer(Date.class, new DateDeserializer(Constants.ENDPOINT_DATE_FORMAT, Constants.ENDPOINT_SECONDARY_DATE_FORMAT));
-//    jsonParsingModule.addDeserializer(CampaignsResponse.class, new CampaignsResponseDeserializer(builder.apiVersion));
-//    jsonParsingModule.addDeserializer(VouchersResponse.class, new VouchersResponseDeserializer(builder.apiVersion));
-		
+				
 		mapper.registerModule(jsonModule);
 		return mapper;
 	}
@@ -97,8 +70,9 @@ public class MyriadClient {
 			@Override
 			public okhttp3.Response intercept(Chain chain) throws IOException {
 				okhttp3.Request request = chain.request();
-				okhttp3.Headers headers = request.headers().newBuilder().add(Constants.HTTP_HEADER_APP_ID, appId)
-						.add(Constants.HTTP_HEADER_APP_TOKEN, appSecret)
+				okhttp3.Headers headers = request.headers().newBuilder()
+						.add(Constants.HTTP_HEADER_APP_ID, config.appId())
+						.add(Constants.HTTP_HEADER_APP_TOKEN, config.appSecret())
 						.add(Constants.HTTP_HEADER_MYRIAD_CHANNEL, Constants.MYRIAD_CHANNEL_NAME)
 						.build();
 				request = request.newBuilder().headers(headers).build();
@@ -106,7 +80,7 @@ public class MyriadClient {
 			}
 		});
 		
-		okClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(logLevel));
+		okClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(config.logLevel()));
 		
 		okClientBuilder.addInterceptor(new Interceptor() {
 			@Override
@@ -125,7 +99,7 @@ public class MyriadClient {
 	
 	private Retrofit initRetrofit(OkHttpClient okHttpClient, ObjectMapper objectMapper) {
 		return new Retrofit.Builder()
-				.baseUrl(baseUrl)
+				.baseUrl(config.baseUrl())
 				.addConverterFactory(JacksonConverterFactory.create(objectMapper))
 				.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 				.client(okHttpClient).build();		

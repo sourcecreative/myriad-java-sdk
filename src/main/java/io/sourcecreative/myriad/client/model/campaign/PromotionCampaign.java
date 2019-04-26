@@ -13,4 +13,9 @@ public class PromotionCampaign extends Campaign {
 	// promotion tiers when campaign type is PROMOTION
 	@Singular("tier")
 	private List<Tier> promotion;
+
+	@Override
+	public CampaignType getType() {
+		return CampaignType.PROMOTION;
+	}
 }

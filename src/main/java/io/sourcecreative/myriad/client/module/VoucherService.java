@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.model.rule.Rule;
 import io.sourcecreative.myriad.client.model.voucher.CreateVoucher;
-import io.sourcecreative.myriad.client.model.voucher.EnableVoucher;
+import io.sourcecreative.myriad.client.model.voucher.DisableVoucher;
 import io.sourcecreative.myriad.client.model.voucher.PaginatedVouchersResponse;
 import io.sourcecreative.myriad.client.model.voucher.UpdateVoucher;
 import io.sourcecreative.myriad.client.model.voucher.VoucherResponse;
@@ -44,7 +44,7 @@ public class VoucherService extends Service {
 		return RemoteCall.of(api.listVouchers(filter));
 	}
 
-	public RemoteCall<VoucherResponse> enable(String voucherId, EnableVoucher enableVoucher) {
+	public RemoteCall<VoucherResponse> enable(String voucherId, DisableVoucher enableVoucher) {
 		return RemoteCall.of(api.enable(voucherId, enableVoucher));
 	}
 	

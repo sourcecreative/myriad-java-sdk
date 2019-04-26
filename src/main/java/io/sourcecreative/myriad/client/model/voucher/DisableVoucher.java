@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class EnableVoucher {
+public class DisableVoucher {
 	private PatchAction op = PatchAction.REPLACE;
 	
 	private String path = "/status";
@@ -17,9 +17,9 @@ public class EnableVoucher {
 	private boolean enabled;
 	
 	@Builder
-	public static EnableVoucher of(boolean enabled) {
-		EnableVoucher ev = new EnableVoucher();
-		ev.value = enabled ? VoucherStatus.ENABLED : VoucherStatus.DISABLED;
+	public static DisableVoucher of() {
+		DisableVoucher ev = new DisableVoucher();
+		ev.value = VoucherStatus.DISABLED;
 		return ev;
 	}
 

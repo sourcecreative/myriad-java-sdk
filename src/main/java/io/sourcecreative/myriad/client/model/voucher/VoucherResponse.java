@@ -21,7 +21,7 @@ public class VoucherResponse {
 
 	private String code;
 	
-	private CouponConfig config;
+	private VoucherConfig config;
 	
 	private VoucherStatus status;
 	

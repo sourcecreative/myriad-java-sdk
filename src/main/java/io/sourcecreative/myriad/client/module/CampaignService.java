@@ -10,14 +10,15 @@ import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.GiftCampaign;
 import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgram;
-import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgramResponse;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
+import io.sourcecreative.myriad.client.model.campaign.PrepaidCardCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.CouponCampaign;
-import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
 import io.sourcecreative.myriad.client.model.rule.Rule;
 
@@ -27,7 +28,7 @@ public class CampaignService extends Service {
 		super(api, objectMapper);
 	}
 
-	public RemoteCall<CouponCampaignResponse> create(CouponCampaign campaign) {
+	public RemoteCall<VoucherCampaignResponse> create(VoucherCampaign campaign) {
 		return RemoteCall.of(api.createCampaign(campaign));
 	}
 
@@ -35,7 +36,15 @@ public class CampaignService extends Service {
 		return RemoteCall.of(api.createCampaign(campaign));
 	}
 
-	public RemoteCall<LoyaltyProgramResponse> create(LoyaltyProgram campaign) {
+	public RemoteCall<VoucherCampaignResponse> create(LoyaltyProgram campaign) {
+		return RemoteCall.of(api.createCampaign(campaign));
+	}
+
+	public RemoteCall<VoucherCampaignResponse> create(GiftCampaign campaign) {
+		return RemoteCall.of(api.createCampaign(campaign));
+	}
+	
+	public RemoteCall<VoucherCampaignResponse> create(PrepaidCardCampaign campaign) {
 		return RemoteCall.of(api.createCampaign(campaign));
 	}
 

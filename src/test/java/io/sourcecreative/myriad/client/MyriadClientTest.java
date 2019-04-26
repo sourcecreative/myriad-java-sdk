@@ -5,17 +5,20 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
 
-import org.jeasy.rules.api.Condition;
 import org.jeasy.rules.api.Facts;
-import org.jeasy.rules.mvel.MVELCondition;
+import org.jeasy.rules.api.Rules;
+import org.jeasy.rules.api.RulesEngine;
+import org.jeasy.rules.core.DefaultRulesEngine;
+import org.jeasy.rules.mvel.MVELRule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import io.sourcecreative.myriad.client.model.campaign.CampaignType;
 import io.sourcecreative.myriad.client.model.campaign.CouponCampaign;
-import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
-import io.sourcecreative.myriad.client.model.voucher.CouponConfig;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
+import io.sourcecreative.myriad.client.model.rule.Rule;
 import io.sourcecreative.myriad.client.model.voucher.Discount;
+import io.sourcecreative.myriad.client.model.voucher.VoucherType;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class MyriadClientTest {
@@ -23,36 +26,50 @@ public class MyriadClientTest {
 
 	@BeforeClass
 	public static void init() {
-		myriad = MyriadClient.builder()
+		myriad = MyriadClient.create(ConnectionConfig.builder()
 				.baseUrl("http://68bb4ace-cb7e-4124-a50a-331c0b537b4c.mock.pstmn.io")
 				.appId("appid")
 				.appSecret("appsecret")
 				.logLevel(Level.BODY)
-				.build();
+				.build());
 	}
 
 	@Test
 	public void test() {
-		Condition c = new MVELCondition("campaign.category == 'New Customer'");
 //		Condition c = new MVELCondition("campaign.name == 'XMAS-PROMO'");
 	
-		CouponCampaign campaign = CouponCampaign.builder()
+		VoucherCampaign campaign = CouponCampaign.builder()
 				.name("XMAS-PROMO")
-				.type(CampaignType.GIFT)
 				.totalSupply(100)
 				.category("New Customer")
 				.effective(Date.valueOf("2019-04-15"))
-				.coupon(CouponConfig.builder().discount(Discount.amountOff(1000)).build()).build();
-
-		// sync execution
-		CouponCampaignResponse response = myriad.campaigns().create(campaign).send();
-		assertEquals(response.getTotalSupply().intValue(), 100);
-		// validate
+				.discount(Discount.amountOff(1000))
+				.rule(Rule.builder()
+						.name("total order amount limit")
+						.condition("amount >= 30")
+						.build())
+				.build();
 		
+		// sync execution
+		VoucherCampaignResponse response = myriad.campaigns().create(campaign).send();
+		assertEquals(response.getVoucherType(), VoucherType.COUPON);
+		assertEquals(response.getDiscount().getAmountOff().intValue(), 100);
+
+		// validate
+		Rules rules = new Rules();
+		campaign.getRules().forEach(r->{
+			rules.register(new MVELRule()
+					.name(r.getName())
+					.description(r.getDescription())
+					.priority(r.getPriority())
+					.when(r.getCondition()));
+		});
+		RulesEngine rulesEngine = new DefaultRulesEngine();
 		Facts facts = new Facts();
-		facts.put("campaign", campaign);
-		//facts.put("voucher", campaign.getVoucher());
-		assertTrue(c.evaluate(facts));
+		facts.put("amount", 100);
+		rulesEngine.check(rules, facts).forEach((k,v)->{
+			assertTrue(v);
+		});
 	}
 
 }

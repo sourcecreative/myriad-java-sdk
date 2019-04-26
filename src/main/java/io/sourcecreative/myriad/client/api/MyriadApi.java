@@ -7,14 +7,15 @@ import java.util.Set;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.GiftCampaign;
 import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgram;
-import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgramResponse;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
+import io.sourcecreative.myriad.client.model.campaign.PrepaidCardCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.CouponCampaign;
-import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.customer.CustomerResponse;
 import io.sourcecreative.myriad.client.model.customer.CustomersResponse;
@@ -42,7 +43,7 @@ import io.sourcecreative.myriad.client.model.segment.SegmentResponse;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucher;
 import io.sourcecreative.myriad.client.model.validation.ValidateVoucherResponse;
 import io.sourcecreative.myriad.client.model.voucher.CreateVoucher;
-import io.sourcecreative.myriad.client.model.voucher.EnableVoucher;
+import io.sourcecreative.myriad.client.model.voucher.DisableVoucher;
 import io.sourcecreative.myriad.client.model.voucher.PaginatedVouchersResponse;
 import io.sourcecreative.myriad.client.model.voucher.UpdateVoucher;
 import io.sourcecreative.myriad.client.model.voucher.VoucherResponse;
@@ -67,14 +68,20 @@ public interface MyriadApi {
   
   // CAMPAIGNS
   @POST("/campaigns")
-  Call<CouponCampaignResponse> createCampaign(@Body CouponCampaign createCampaign);
+  Call<VoucherCampaignResponse> createCampaign(@Body VoucherCampaign createCampaign);
   
+  @POST("/campaigns")
+  Call<VoucherCampaignResponse> createCampaign(@Body LoyaltyProgram createCampaign);
+
+  @POST("/campaigns")
+  Call<VoucherCampaignResponse> createCampaign(@Body GiftCampaign createCampaign);
+
+  @POST("/campaigns")
+  Call<VoucherCampaignResponse> createCampaign(@Body PrepaidCardCampaign createCampaign);
+
   @POST("/campaigns")
   Call<PromotionCampaignResponse> createCampaign(@Body PromotionCampaign createCampaign);
   
-  @POST("/campaigns")
-  Call<LoyaltyProgramResponse> createCampaign(@Body LoyaltyProgram createCampaign);
-
   @POST("/campaigns/{id}/vouchers")
   Call<CampaignResponse> addVoucherToCampaign(@Path("id") String campaignId, @Body AddVoucherToCampaign addVoucherToCampaign);
 
@@ -133,7 +140,7 @@ public interface MyriadApi {
   Call<PaginatedVouchersResponse> listVouchers(@QueryMap Map<String, Object> filter);
 
   @PATCH("/vouchers/{id}")
-  Call<VoucherResponse> enable(@Path("id") String voucherId, @Body EnableVoucher disableVoucher);
+  Call<VoucherResponse> enable(@Path("id") String voucherId, @Body DisableVoucher disableVoucher);
 
   // create a list of vouchers and assign to the creation account
   @POST("/vouchers/import")

@@ -1,5 +1,7 @@
 package io.sourcecreative.myriad.client.model.voucher;
 
+import java.math.BigDecimal;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,14 +15,21 @@ import lombok.ToString;
 @Getter
 @Builder
 @ToString
-public class CouponConfig {
+public class VoucherConfig {
 	@NonNull
-	private Discount discount;
-
+	private VoucherType voucherType;
+	
 	// max redemption quantity
 	@Builder.Default
 	private Integer redemption = 1;
 
 	private CodeConfig codeConfig;
+			
+	// discount for DISCOUNT voucher
+	private Discount discount;
+
+	// prepaid card value
+	private BigDecimal amount;
+
 
 }

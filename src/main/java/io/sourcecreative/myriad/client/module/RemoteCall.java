@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import io.reactivex.Observable;
 import io.sourcecreative.myriad.client.api.APIError;
-import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,23 +28,18 @@ public class RemoteCall<T> {
 			return response.body();
 			
 		} catch(IOException e) {
-			error = APIError.builder()
-					.code(502)
-					.key("network.error")
-					.message("Network Connection Error")
-					.build();
+			error = new APIError(408, "Network Connection Error");
 
 		} catch(RuntimeException re) {
 			if (re instanceof APIError)
 				error = (APIError)re;
 			else
-				error = APIError.builder().code(500).key("server.error.unknown")
-					.message(re.getMessage()).build();	
+				error = new APIError(re);	
 		}
 		throw error;
 	}
 	
-	public void sendAsyn(@NonNull Callback<T> callback) {
+	public void sendAsyn(Callback<T> callback) {
 		call.enqueue(callback);		
 	}
 	

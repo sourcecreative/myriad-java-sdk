@@ -31,5 +31,7 @@ abstract public class Campaign {
 	
 	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
+	
+	public abstract CampaignType getType();
 
 }

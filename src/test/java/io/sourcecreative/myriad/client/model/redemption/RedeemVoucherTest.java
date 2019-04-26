@@ -8,8 +8,9 @@ import org.jeasy.rules.mvel.MVELRule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import io.sourcecreative.myriad.client.ConnectionConfig;
 import io.sourcecreative.myriad.client.MyriadClient;
-import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.voucher.CreateVoucher;
 import io.sourcecreative.myriad.client.model.voucher.VoucherResponse;
@@ -17,17 +18,17 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class RedeemVoucherTest {
 	private MyriadClient myriad;
-	private CouponCampaignResponse campaign;
+	private VoucherCampaignResponse campaign;
 	
 	@BeforeClass
 	public void init() {
-		myriad = MyriadClient.builder()
-				.baseUrl("http://72ec40ea-aeb2-43bb-9627-94f0f35e6c06.mock.pstmn.io")
+		myriad = MyriadClient.create(ConnectionConfig.builder()
+				.baseUrl("http://68bb4ace-cb7e-4124-a50a-331c0b537b4c.mock.pstmn.io")
 				.appId("appid")
 				.appSecret("appsecret")
 				.logLevel(Level.BODY)
-				.build();
-		campaign = (CouponCampaignResponse)myriad.campaigns().findById("1").send();
+				.build());
+		campaign = (VoucherCampaignResponse)myriad.campaigns().findById("1").send();
 	}
 	
 	@Test

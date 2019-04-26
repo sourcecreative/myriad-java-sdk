@@ -10,11 +10,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.CampaignType;
-import io.sourcecreative.myriad.client.model.campaign.CouponCampaignResponse;
-import io.sourcecreative.myriad.client.model.campaign.GiftCampaignResponse;
-import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgramResponse;
-import io.sourcecreative.myriad.client.model.campaign.PrepaidCardCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 
 public class CampaignResponseDeserializer  extends JsonDeserializer<CampaignResponse> {
 
@@ -29,16 +26,10 @@ public class CampaignResponseDeserializer  extends JsonDeserializer<CampaignResp
 		
 		CampaignResponse result = null;
 		
-		if (campaignType.equals(CampaignType.COUPON)) {
-			result = jsonParser.getCodec().readValue(jsonParser, CouponCampaignResponse.class);
+		if (campaignType.equals(CampaignType.VOUCHER)) {
+			result = jsonParser.getCodec().readValue(jsonParser, VoucherCampaignResponse.class);
 		} else if (campaignType.equals(CampaignType.PROMOTION)) {
 			result = jsonParser.getCodec().readValue(jsonParser, PromotionCampaignResponse.class);
-		} else if (campaignType.equals(CampaignType.LOYALTY)) {
-			result = jsonParser.getCodec().readValue(jsonParser, LoyaltyProgramResponse.class);
-		} else if (campaignType.equals(CampaignType.GIFT)){
-			result = jsonParser.getCodec().readValue(jsonParser, GiftCampaignResponse.class);
-		} else if (campaignType.equals(CampaignType.PREPAID)) {
-			result = jsonParser.getCodec().readValue(jsonParser, PrepaidCardCampaignResponse.class);			
 		} else {
 			throw new RuntimeException("Unsupported campaign type");
 		}

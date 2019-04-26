@@ -1,28 +1,20 @@
 package io.sourcecreative.myriad.client.model.campaign;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-import io.sourcecreative.myriad.client.model.rule.RuleResponse;
-import io.sourcecreative.myriad.client.model.voucher.CodeConfig;
+import io.sourcecreative.myriad.client.model.voucher.VoucherType;
 import lombok.Getter;
-import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
-public class PrepaidCardCampaign extends Campaign {
-	private Integer totalSupply;
-	
-	// amount in cent
-	private int amount;
-	
-	// 1 means one-time use
-	private Integer redemption;
-	
-	private CodeConfig codeConfig;
+public class PrepaidCardCampaign extends VoucherCampaign {
+	// cash amount
+	private BigDecimal amount;
 
-	// redemption rules if any
-	@Singular("rule")
-	private List<RuleResponse> rules;
-
+	@Override
+	public VoucherType getVoucherType() {
+		return VoucherType.PREPAID_CARD;
+	}
+	
 }

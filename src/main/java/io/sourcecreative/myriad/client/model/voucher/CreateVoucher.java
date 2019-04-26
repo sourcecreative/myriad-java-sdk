@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -19,13 +20,16 @@ import lombok.ToString;
 @Builder
 @ToString
 public class CreateVoucher {
-	// if campaignId is provided, the campaign must allow minting
+	// if campaignId is provided, the campaign must be autoUpdatable
 	private String campaignId;
 	// client may provide a code. if not set, server shall create a code
 	private String code;
 
+	@NonNull
+	private VoucherType type;
+	
 	@JsonUnwrapped
-	private CouponConfig config;
+	private VoucherConfig config;
 
 	@Singular("metadataEntry")
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)

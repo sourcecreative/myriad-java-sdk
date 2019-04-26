@@ -1,22 +1,25 @@
 package io.sourcecreative.myriad.client.model.campaign;
 
-import io.sourcecreative.myriad.client.model.voucher.CodeConfig;
+import java.util.List;
+
+import io.sourcecreative.myriad.client.model.rule.Rule;
+import io.sourcecreative.myriad.client.model.voucher.VoucherType;
 import lombok.Getter;
-import lombok.NonNull;
+import lombok.Singular;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
-public class LoyaltyProgram extends Campaign {
-	// symbol of the points
-	@NonNull
-	private String symbol;
+public class LoyaltyProgram extends VoucherCampaign {
+	// where points can be used
+	private String campaignId;
 	
-	// name of the points
-	@NonNull
-	private String name;
+	// earning rules
+	@Singular("earningRule")
+	private List<Rule> earningRules;
 
-	// used to generate membership code
-	private CodeConfig codeConfig;
-
+	@Override
+	public VoucherType getVoucherType() {
+		return VoucherType.LOYALTY_CARD;
+	}
 }

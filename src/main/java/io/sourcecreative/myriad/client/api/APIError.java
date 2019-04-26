@@ -1,26 +1,32 @@
 package io.sourcecreative.myriad.client.api;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import java.io.IOException;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Getter
-@ToString
 public class APIError extends RuntimeException {
 	private static final long serialVersionUID = 1871082617076449419L;
 	
-	private Integer code;
-	private String key;
+	private int code;
 	
-	@Builder
-	private APIError(int code, String key, String message) {
+	public APIError() {
+		super();
+	}
+	
+	public APIError(int code, String message) {
 		super(message);
 		this.code = code;
-		this.key = key;
+	}
+		
+	public APIError(Throwable cause) {
+		super(cause);
+		
+		if (cause instanceof IOException) {
+			this.code = 408;
+		} else {
+			this.code = 500;
+		}
+	}
+	
+	public int getCode() {
+		return code;
 	}
 }
