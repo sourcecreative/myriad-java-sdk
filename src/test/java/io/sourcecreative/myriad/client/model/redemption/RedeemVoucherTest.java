@@ -1,5 +1,7 @@
 package io.sourcecreative.myriad.client.model.redemption;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
@@ -39,7 +41,8 @@ public class RedeemVoucherTest {
 				.code("ABCDEF")
 				.build();
 		VoucherResponse voucher = myriad.vouchers().create(createVoucher).send();
-
+		assertEquals(voucher.getCampaignId(), "1");
+		
 		// create request
 		RedeemVoucher redeemVoucher = RedeemVoucher.builder()
 			.voucherCode("ABCDEF")
@@ -61,6 +64,7 @@ public class RedeemVoucherTest {
 		Facts facts = new Facts();
 		facts.put("redemption", redeemVoucher);
 		rulesEngine.check(rules, facts);
+		
 	}
-
+	
 }

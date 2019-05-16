@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.sourcecreative.myriad.client.model.PaginatedResponse;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
@@ -26,7 +27,6 @@ import io.sourcecreative.myriad.client.model.distribution.DistributeVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeVouchersBySegment;
 import io.sourcecreative.myriad.client.model.distribution.DistributionsResponse;
 import io.sourcecreative.myriad.client.model.distribution.PaginatedDistributionsResponse;
-import io.sourcecreative.myriad.client.model.product.PaginatedProductsResponse;
 import io.sourcecreative.myriad.client.model.product.Product;
 import io.sourcecreative.myriad.client.model.product.ProductResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
@@ -257,7 +257,7 @@ public interface MyriadApi {
   Call<ProductResponse> getProduct(@Path("id")String id);
   
   @GET("/products")
-  Call<List<PaginatedProductsResponse>> listProducts(@QueryMap Map<String,Object> filter);
+  Call<List<PaginatedResponse<ProductResponse>>> listProducts(@QueryMap Map<String,Object> filter);
   
   @DELETE("/products/{id}")
   Call<Void> deleteProduct(@Path("id")String id);

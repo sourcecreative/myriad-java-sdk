@@ -2,27 +2,20 @@ package io.sourcecreative.myriad.client.model;
 
 import java.util.List;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.ToString;
+import lombok.Value;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
-@ToString
+@Value
 public class PaginatedResponse<T> {
 	@NonNull
-	private Integer total;
+	private final Integer total;
 	
 	@NonNull
-	private Integer page;
+	private final Integer page;
 	
 	@NonNull
-	private Integer size;
+	private final Integer size;
 
 	@NonNull
-	private List<T> items;
+	private final List<T> items;
 }
