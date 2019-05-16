@@ -5,10 +5,10 @@ import java.util.Map;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
-@ToString
+@SuperBuilder
 public abstract class CampaignResponse {
 	@NonNull
 	private String id;

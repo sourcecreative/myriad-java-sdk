@@ -21,5 +21,8 @@ public class ConnectionConfig {
 
 	@Builder.Default
 	private Level logLevel = Level.BASIC;
+	
+	@Builder.Default
+	private boolean isMock = false;
 
 }

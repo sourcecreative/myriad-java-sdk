@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import io.sourcecreative.myriad.client.api.APIError;
 import io.sourcecreative.myriad.client.api.MyriadApi;
+import io.sourcecreative.myriad.client.api.MyriadApiBuilder;
 import io.sourcecreative.myriad.client.json.CampaignResponseDeserializer;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
 import io.sourcecreative.myriad.client.module.CampaignService;
@@ -48,6 +49,19 @@ public class MyriadClient {
 				.build();
 		
 		return client;
+	}
+	
+	public static MyriadClient create(@NonNull ConnectionConfig config, MyriadApiBuilder apiProvider) {
+		MyriadClient client = new MyriadClient(config);
+		
+		ObjectMapper mapper = client.initObjectMapper();
+		
+		client.module = MyriadModule.builder()
+				.myriadApi(client.initMyriadApi(mapper, apiProvider))
+				.objectMapper(mapper)
+				.build();
+		
+		return client;		
 	}
 	
 	private ObjectMapper initObjectMapper() {
@@ -106,8 +120,19 @@ public class MyriadClient {
 	}
 	
 	private MyriadApi initMyriadApi(ObjectMapper mapper) {
-		return initRetrofit(initOkHttpClient(mapper), mapper).create(MyriadApi.class);
+		return initMyriadApi(mapper, null);
 	}
+	
+	private MyriadApi initMyriadApi(ObjectMapper mapper, MyriadApiBuilder apiProvider) {
+		Retrofit retrofit = initRetrofit(initOkHttpClient(mapper), mapper);
+		if (apiProvider == null)
+			return retrofit.create(MyriadApi.class);
+		else {
+			// use a builder to create retrofit instance
+			return apiProvider.build(retrofit);
+		}
+	}
+	
 
 	/// helper functions
 

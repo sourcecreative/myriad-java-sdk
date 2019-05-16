@@ -9,16 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.sourcecreative.myriad.client.api.MyriadApi;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
+import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
-import io.sourcecreative.myriad.client.model.campaign.GiftCampaign;
-import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgram;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
-import io.sourcecreative.myriad.client.model.campaign.PrepaidCardCampaign;
-import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
-import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
 import io.sourcecreative.myriad.client.model.rule.Rule;
 
@@ -28,23 +22,7 @@ public class CampaignService extends Service {
 		super(api, objectMapper);
 	}
 
-	public RemoteCall<VoucherCampaignResponse> create(VoucherCampaign campaign) {
-		return RemoteCall.of(api.createCampaign(campaign));
-	}
-
-	public RemoteCall<PromotionCampaignResponse> create(PromotionCampaign campaign) {
-		return RemoteCall.of(api.createCampaign(campaign));
-	}
-
-	public RemoteCall<VoucherCampaignResponse> create(LoyaltyProgram campaign) {
-		return RemoteCall.of(api.createCampaign(campaign));
-	}
-
-	public RemoteCall<VoucherCampaignResponse> create(GiftCampaign campaign) {
-		return RemoteCall.of(api.createCampaign(campaign));
-	}
-	
-	public RemoteCall<VoucherCampaignResponse> create(PrepaidCardCampaign campaign) {
+	public RemoteCall<CampaignResponse> create(Campaign campaign) {
 		return RemoteCall.of(api.createCampaign(campaign));
 	}
 

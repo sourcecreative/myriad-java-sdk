@@ -13,6 +13,8 @@ import org.jeasy.rules.mvel.MVELRule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
+import io.sourcecreative.myriad.client.model.campaign.CampaignType;
 import io.sourcecreative.myriad.client.model.campaign.CouponCampaign;
 import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
 import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
@@ -51,7 +53,7 @@ public class MyriadClientTest {
 				.build();
 		
 		// sync execution
-		VoucherCampaignResponse response = myriad.campaigns().create(campaign).send();
+		VoucherCampaignResponse response = (VoucherCampaignResponse)myriad.campaigns().create(campaign).send();
 		assertEquals(response.getVoucherType(), VoucherType.COUPON);
 		assertEquals(response.getDiscount().getAmountOff().intValue(), 100);
 

@@ -21,6 +21,7 @@ public class CustomEvent {
 	@NonNull
 	private String event;
 	
+	// who performs the event
 	@NonNull
 	private Customer customer;
 	

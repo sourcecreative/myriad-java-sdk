@@ -7,16 +7,10 @@ import java.util.Set;
 import io.sourcecreative.myriad.client.model.PaginatedResponse;
 import io.sourcecreative.myriad.client.model.campaign.ActivateCampaign;
 import io.sourcecreative.myriad.client.model.campaign.AddVoucherToCampaign;
+import io.sourcecreative.myriad.client.model.campaign.Campaign;
 import io.sourcecreative.myriad.client.model.campaign.CampaignResponse;
-import io.sourcecreative.myriad.client.model.campaign.GiftCampaign;
-import io.sourcecreative.myriad.client.model.campaign.LoyaltyProgram;
 import io.sourcecreative.myriad.client.model.campaign.PaginatedCampaignsResponse;
-import io.sourcecreative.myriad.client.model.campaign.PrepaidCardCampaign;
-import io.sourcecreative.myriad.client.model.campaign.PromotionCampaign;
-import io.sourcecreative.myriad.client.model.campaign.PromotionCampaignResponse;
 import io.sourcecreative.myriad.client.model.campaign.UpdateCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaign;
-import io.sourcecreative.myriad.client.model.campaign.VoucherCampaignResponse;
 import io.sourcecreative.myriad.client.model.customer.Customer;
 import io.sourcecreative.myriad.client.model.customer.CustomerResponse;
 import io.sourcecreative.myriad.client.model.customer.CustomersResponse;
@@ -71,20 +65,8 @@ public interface MyriadApi {
   
   // CAMPAIGNS
   @POST("/campaigns")
-  Call<VoucherCampaignResponse> createCampaign(@Body VoucherCampaign createCampaign);
-  
-  @POST("/campaigns")
-  Call<VoucherCampaignResponse> createCampaign(@Body LoyaltyProgram createCampaign);
-
-  @POST("/campaigns")
-  Call<VoucherCampaignResponse> createCampaign(@Body GiftCampaign createCampaign);
-
-  @POST("/campaigns")
-  Call<VoucherCampaignResponse> createCampaign(@Body PrepaidCardCampaign createCampaign);
-
-  @POST("/campaigns")
-  Call<PromotionCampaignResponse> createCampaign(@Body PromotionCampaign createCampaign);
-  
+  Call<CampaignResponse> createCampaign(@Body Campaign createCampaign);
+    
   @POST("/campaigns/{id}/vouchers")
   Call<CampaignResponse> addVoucherToCampaign(@Path("id") String campaignId, @Body AddVoucherToCampaign addVoucherToCampaign);
 
