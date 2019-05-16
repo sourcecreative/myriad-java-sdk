@@ -26,6 +26,9 @@ import io.sourcecreative.myriad.client.model.distribution.DistributeVouchers;
 import io.sourcecreative.myriad.client.model.distribution.DistributeVouchersBySegment;
 import io.sourcecreative.myriad.client.model.distribution.DistributionsResponse;
 import io.sourcecreative.myriad.client.model.distribution.PaginatedDistributionsResponse;
+import io.sourcecreative.myriad.client.model.product.PaginatedProductsResponse;
+import io.sourcecreative.myriad.client.model.product.Product;
+import io.sourcecreative.myriad.client.model.product.ProductResponse;
 import io.sourcecreative.myriad.client.model.promotion.Tier;
 import io.sourcecreative.myriad.client.model.redemption.PaginatedRedemptionsResponse;
 import io.sourcecreative.myriad.client.model.redemption.RedeemVoucher;
@@ -247,4 +250,16 @@ public interface MyriadApi {
   @POST("/vouchers/{id}/validate")
   Call<ValidateVoucherResponse> validateVoucher(@Body ValidateVoucher validateVoucher);
 
+  @POST("/products")
+  Call<ProductResponse> createProduct(@Body Product product);
+  
+  @GET("/products/{id}")
+  Call<ProductResponse> getProduct(@Path("id")String id);
+  
+  @GET("/products")
+  Call<List<PaginatedProductsResponse>> listProducts(@QueryMap Map<String,Object> filter);
+  
+  @DELETE("/products/{id}")
+  Call<Void> deleteProduct(@Path("id")String id);
+  
 }

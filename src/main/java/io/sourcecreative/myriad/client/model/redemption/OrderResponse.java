@@ -19,6 +19,11 @@ public class OrderResponse {
 	// sourceId is the order number from client app
 	private String sourceId;
 	
+	private String customerId;
+	
+	// the person who referred the customer to make the order
+	private String referrerId;
+	
 	// total amount for the order
 	private Integer amount;
 	

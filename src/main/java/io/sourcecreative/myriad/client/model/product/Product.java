@@ -1,8 +1,8 @@
-package io.sourcecreative.myriad.client.model.redemption;
+package io.sourcecreative.myriad.client.model.product;
 
-import java.util.List;
 import java.util.Map;
 
+import io.sourcecreative.myriad.client.model.Currency;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,21 +17,21 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class Order {
-	// sourceId is the order number from client app
+public class Product {
+	//a unique product identifier from inventory system used for integration
 	private String sourceId;
 	
-	private String customerId;
-	
-	private String referrerId;
-	
-	// total amount for the order
 	@NonNull
-	private Integer amount;
+	private String name;
 	
-	@Singular
-	private List<OrderItem> items;
+	// H5-enabled product description
+	private String description;
+	
+	private Integer price;
+	
+	private Currency currency;
 	
 	@Singular("metadataEntry")
 	private Map<String, Object> metadata;
+	
 }

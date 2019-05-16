@@ -1,6 +1,5 @@
 package io.sourcecreative.myriad.client.model.redemption;
 
-import java.util.List;
 import java.util.Map;
 
 import lombok.AccessLevel;
@@ -8,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Singular;
 import lombok.ToString;
 
@@ -17,21 +15,13 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-public class Order {
-	// sourceId is the order number from client app
-	private String sourceId;
-	
-	private String customerId;
-	
-	private String referrerId;
-	
-	// total amount for the order
-	@NonNull
+public class OrderItem {
+	private String productId;
+	private String skuId;
+	private Integer quantity;
+	private Integer price;
 	private Integer amount;
-	
-	@Singular
-	private List<OrderItem> items;
-	
 	@Singular("metadataEntry")
-	private Map<String, Object> metadata;
+	private Map<String,Object> metadata;
+
 }
